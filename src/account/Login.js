@@ -20,11 +20,6 @@ const Login = () => {
           </form>
 
       </div>
-
-      <div className='registerbox'>
-
-      </div>
-      
      
     </div>
   );
