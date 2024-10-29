@@ -1,6 +1,6 @@
-body{
+.acctbody{
     display: flex;
-    margin: 20px;
+    /* margin: 20px; */
     background-image: 
     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, .7)),
     url('../../public/loginphoto.jpg');

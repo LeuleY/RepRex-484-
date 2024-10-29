@@ -1,12 +1,13 @@
 import React from 'react';
 import './Login.css';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+
 
 
 const Login = () => {
   return (
-    
-    
-    <div className="centerbox">
+    <div className='acctbody'>
+        <div className="centerbox">
 
     
 
@@ -17,11 +18,18 @@ const Login = () => {
             <input type="text" placeholder="Username" />
             <input type="password" placeholder="Password" />
             <button type="submit" id='bttn'>Login</button>
-          </form>
+            <p>Dont have an account? </p>
+            <a href='./register'>Register Here</a>
 
+          </form>
       </div>
-     
+
     </div>
+
+
+    </div>
+    
+  
   );
 };
 
