@@ -8,25 +8,69 @@ body{
     background-position: center; 
     height: 100vh; 
     justify-content: center; 
-    align-items: center; 
+    overflow: hidden; 
 }
 
 .centerbox{
     display: flex;
     justify-content: center; 
     align-items: center;     
-    height: 100vh;      
-    
+    height: 100vh;
+    flex-direction: column;
 
 }
+
 .form{
     display: flex;
     justify-content: center;
     flex-direction: column;
     gap: 20px;
-    padding: 20px;
-    background-color: #f0f0f0;
     border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 250px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #c58f8f;
+    padding: 20px 60px 70px;
+    text-align: center;
 }
+
+.loginbox{
+    display: flex;
+    height: 30vh;
+}
+
+input{
+    background-color: #eaeaea;
+    margin: 10px 0;
+    display: flex;
+    border-radius: 8px;
+    height: 30px;
+    padding-left: 10px;
+
+}
+
+h1::after{
+    content: '';
+    width: 30px;
+    height: 4px;
+    border-radius: 3px;
+    background: #3c0000;
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#bttn{
+    border-radius: 10px;
+    padding: 8px;
+    margin-left: 10%;
+    margin-right: 10%;
+
+
+}
+
 
