@@ -1,7 +1,6 @@
 const {MongoClient} = require("mongodb")
 require("dotenv").config({path: "config.env"})
-const express = require('express')
-const corse = require('cors')
+
 
 async function main(){
     const db = process.env.ATLAS_URI
