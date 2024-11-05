@@ -4,7 +4,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-
+//!!!!!!!
 //NOTE JS AND JSX FILES ARE BASICALLY THE SAME BUT IT'S RECOMMEND TO USE JSX FILES INSTEAD 
 
 function CardList({muscle="chest"}) { // WHEN YOU CALL CARD LIST YOU MUST PASS A VALUE FOR MUSCLE CATEGORY 
