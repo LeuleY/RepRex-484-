@@ -4,7 +4,7 @@
     background-image: 
     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, .7)),
     url('../../public/loginphoto.jpg');
-    background-size: cover; 
+    background-size: contain; 
     background-position: center; 
     height: 100vh; 
     justify-content: center; 
@@ -32,9 +32,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #c58f8f;
+    background: #d4aeae;
     padding: 20px 60px 70px;
     text-align: center;
+    opacity: 90%;
 }
 
 .loginbox{
