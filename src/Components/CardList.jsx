@@ -4,6 +4,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Navigate, useNavigate } from 'react-router-dom';
+import '../ComponentCSS/Cards.css'
 
 //!!!!!!!
 //NOTE JS AND JSX FILES ARE BASICALLY THE SAME BUT IT'S RECOMMEND TO USE JSX FILES INSTEAD 
@@ -56,11 +57,14 @@ function CardList({ muscle = "chest" }) { // WHEN YOU CALL CARD LIST YOU MUST PA
         centerMode: false,
         variableWidth: false,
         adaptiveHeight: true,  // Ensures consistent height
+        arrows: true,
     };
 
 
 const handleCardClick = (exercise) => {
-    navigate(`/details/${exercise}`)
+    localStorage.setItem(`${exercise.name}`,JSON.stringify(exercise))
+    navigate(`/details/${exercise.name}`)
+
 }
 
 
@@ -78,7 +82,7 @@ const handleCardClick = (exercise) => {
                         difficultly={exercise.difficulty}
                         muscle={exercise.muscle.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
                         description={exercise.instructions.slice(0, 100) + "--"}
-                        onClick={() => handleCardClick(exercise.name)}
+                        onClick={() => handleCardClick(exercise)}
                     />
 
                 ))}

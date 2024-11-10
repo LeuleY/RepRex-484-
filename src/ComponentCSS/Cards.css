@@ -11,6 +11,8 @@
     margin-bottom: 5px;
 }
 
+
+
 .slick-list {
   padding-left: 250px;
   padding-right: 10px;
@@ -25,7 +27,62 @@
   padding-right: 0%;
 }
 
+.slider-container {
+    position: relative;
+    padding: 0 40px;  /* Makes space for arrows */
+    margin: 10px 0;
+}
+
+/* Arrow Styles */
+.slick-prev,
+.slick-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    width: 30px !important;
+    height: 30px !important;
+    background: #333 !important;  /* Dark background */
+    border-radius: 50%;
+    opacity: 0.8;
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+    opacity: 1;
+    background: #444 !important;
+}
+
+.slick-prev {
+    left: 0 !important;
+}
+
+.slick-next {
+    right: 0 !important;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    font-size: 20px !important;
+    opacity: 1 !important;
+    color: white !important;
+}
+
+/* Dots style if you want them */
+.slick-dots {
+    bottom: -25px;
+}
+
+.slick-dots li button:before {
+    font-size: 12px;
+}
   
+
+
+
+
+
+
   .card {
     width: 250px; /* Adjusted for a balanced look, modify as needed */
     height: 360px;

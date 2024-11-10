@@ -6,7 +6,8 @@ import Login from './account/Login'
 import Register from './account/Register'
 import CardList from './Components/CardList';
 import DetailsPage from './Components/DetailsPage';
-import './ComponentCSS/Cards.css'
+
+
 
 
 function App() {
