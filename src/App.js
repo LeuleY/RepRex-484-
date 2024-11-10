@@ -1,4 +1,4 @@
-import Login from "./Login";
+
 import React from 'react';
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import './ComponentCSS/App.css';
@@ -8,7 +8,6 @@ import CardList from './Components/CardList';
 import DetailsPage from './Components/DetailsPage';
 import './ComponentCSS/Cards.css'
 
-import './App.css';
 
 function App() {
   return (
