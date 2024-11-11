@@ -4,6 +4,8 @@ import dumbbell from '../DetailPageAssets/dumbbell2.png';
 import user from '../homepageAssets/User.png'
 import biceps from '../DetailPageAssets/biceps_icon.png';
 import '../ComponentCSS/DetailsPage.css'
+import VideoList from '../Components/VideoList';
+import struggle from '../DetailPageAssets/struggle_icon.png';
 
 
 
@@ -23,20 +25,6 @@ function DetailsPage() {
 
     // Show loading while data isn't ready
     if (!exerciseData) return <div>Loading...</div>;
-
-
-
-    // switch(exerciseData.muscle) {
-    //     case 'biceps':
-    //         muscleIconSRC = '../DetailPageAssets/biceps_icon.png' ;
-    //     case 'chest':
-    //         muscleIconSRC ='../DetailPageAssets/chest_icon.png' ;
-    //     case '':
-    //        muscleIconSRC = user;
-    //     default:
-    //         muscleIconSRC = '../DetailPageAssets/chest_icon.png';
-    // }
-
 
     return (
         <div>
@@ -67,6 +55,17 @@ function DetailsPage() {
 
                     </h3>
 
+                <h5 className="difficulty">
+                <img className="dumbell" src={struggle} alt="scale" /> 
+                        Difficulty: {exerciseData?.difficulty?.split('_')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ')}
+
+
+                </h5>
+
+
+
                     <div className="instruction-section">
                         <h3>Instructions:</h3>
                         <p>{exerciseData.instructions}</p>
@@ -74,14 +73,14 @@ function DetailsPage() {
                 </div>
 
                 <div className="video-section">
-                    <h1>Watch videos of exercise</h1>
-                    {/* Video content will go here */}
+                    <h1>Watch Videos Examples</h1>
+                    <VideoList searchedVideo={exerciseData?.name} ></VideoList>
                 </div>
             </main>
 
             <footer>
-                <div class="footer-content">
-                    <div class="quick-links">
+                <div className="footer-content">
+                    <div className="quick-links">
                         <h3>Quick Links</h3>
                         <ul>
                             <li><a href="#">Exercise Lab</a></li>
@@ -89,7 +88,7 @@ function DetailsPage() {
                             <li><a href="#">Weight Loss</a></li>
                         </ul>
                     </div>
-                    <div class="quick-links">
+                    <div className="quick-links">
                         <h3>Quick Links</h3>
                         <ul>
                             <li><a href="#">Exercise Lab</a></li>
@@ -97,7 +96,7 @@ function DetailsPage() {
                             <li><a href="#">Weight Loss</a></li>
                         </ul>
                     </div>
-                    <div class="subscribe">
+                    <div className="subscribe">
                         <h3>Rep Letter</h3>
                         <form>
                             <input type="email" placeholder="E-mail" required />
@@ -106,7 +105,7 @@ function DetailsPage() {
                     </div>
                 </div>
 
-                <div class="attributions">
+                <div className="attributions">
                     <h3>Image Credits</h3>
                     <p>All muscle group and transformation images were created using DALL-E 3 by OpenAI. For more information about DALL-E, visit <a href="https://openai.com/dall-e-3">OpenAI's DALL-E 3 page</a>.
                     </p>
@@ -115,10 +114,6 @@ function DetailsPage() {
                     </p>
                 </div>
             </footer>
-
-
-
-
 
 
         </div>

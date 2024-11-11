@@ -6,6 +6,7 @@ import Login from './account/Login'
 import Register from './account/Register'
 import CardList from './Components/CardList';
 import DetailsPage from './Components/DetailsPage';
+import VideoList from './Components/VideoList';
 
 
 
@@ -23,6 +24,8 @@ function App() {
 
         </Routes>
       </BrowserRouter>
+
+
 
 
     </div>
