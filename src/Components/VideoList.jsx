@@ -3,7 +3,7 @@ import VideoCard from "./VideoCard";
 import '../ComponentCSS/VideoList.css'
 
 function VideoList({ searchedVideo = "null" }) {
-    const apikey = "bd1b98da96mshf8f4d3147be8342p1f1da5jsn254a93a42e42";
+    const apikey = "";
     const [videoList, setVideoList] = useState([]);
 
     useEffect(() => {

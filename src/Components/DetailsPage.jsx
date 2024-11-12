@@ -63,8 +63,6 @@ function DetailsPage() {
 
                 </h5>
 
-
-
                     <div className="instruction-section">
                         <h3>Instructions:</h3>
                         <p>{exerciseData.instructions}</p>
