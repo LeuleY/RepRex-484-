@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
 import dumbbell from '../DetailPageAssets/dumbbell2.png';
-import user from '../homepageAssets/User.png'
 import biceps from '../DetailPageAssets/biceps_icon.png';
 import '../ComponentCSS/DetailsPage.css'
 import VideoList from '../Components/VideoList';
@@ -33,7 +32,7 @@ function DetailsPage() {
                     <a href="#">Home</a>
                     <a href="#">RexLog</a>
                     <a href="#">About</a>
-                    <a href="#"><img src={user} /></a>
+                    <a href="#"><img src='/homepageAssets/User.png' /></a>
                 </nav>
             </header>
 
@@ -56,7 +55,7 @@ function DetailsPage() {
                     </h3>
 
                 <h5 className="difficulty">
-                <img className="dumbell" src={struggle} alt="scale" /> 
+                <img className="dumbell" src='/homepageAssets/User.png' alt="scale" /> 
                         Difficulty: {exerciseData?.difficulty?.split('_')
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ')}

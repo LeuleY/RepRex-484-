@@ -7,6 +7,10 @@ import Register from './account/Register'
 import CardList from './Components/CardList';
 import DetailsPage from './Components/DetailsPage';
 import VideoList from './Components/VideoList';
+import Calculator from './Components/Calculator'
+import About from './Components/About';
+import Community from './Components/Community';
+import HomePage from './Components/HomePage';
 
 
 
@@ -14,17 +18,19 @@ import VideoList from './Components/VideoList';
 function App() {
   return (
     <div >
-      <BrowserRouter>
-        <Routes>
+   
+        {/* <Routes>
           <Route index element={<Login/>}/> 
           <Route path='/login' element={<Login/>} />
           <Route path='/register' element={<Register/>} />
           <Route path='/details/:exercise/' element={<DetailsPage/>}/>
           <Route path='/cards' element={<CardList/>}/>
-
-        </Routes>
-      </BrowserRouter>
-
+        </Routes> */}
+   
+   
+   <HomePage></HomePage>
+   {/* <Calculator></Calculator> */}
+ 
 
 
 

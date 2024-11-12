@@ -10,7 +10,7 @@ import '../ComponentCSS/Cards.css'
 //NOTE JS AND JSX FILES ARE BASICALLY THE SAME BUT IT'S RECOMMEND TO USE JSX FILES INSTEAD 
 
 function CardList({ muscle = "chest" }) { // WHEN YOU CALL CARD LIST YOU MUST PASS A VALUE FOR MUSCLE CATEGORY 
-    const apikey = "";  // BLANK ON PURPOSE 
+    const apikey = "OkNEOkKX82avKszpBT2cVw==FGO3R5R2b3opoedm";  // BLANK ON PURPOSE 
     const navigate = useNavigate();
     // !!! NOTE DO NOT DO A GIT COMMIT WITH YOUR API, BECAUSE IF YOU DO YOU WILL LOSE IT 
 
@@ -37,7 +37,7 @@ function CardList({ muscle = "chest" }) { // WHEN YOU CALL CARD LIST YOU MUST PA
 
                 const data = await response.json();
                 setCardList(data);
-             
+
 
             } catch (error) {
                 console.log("Error fetching data:", error.message);
@@ -61,15 +61,11 @@ function CardList({ muscle = "chest" }) { // WHEN YOU CALL CARD LIST YOU MUST PA
     };
 
 
-const handleCardClick = (exercise) => {
-    localStorage.setItem(`${exercise.name}`,JSON.stringify(exercise))
-    navigate(`/details/${exercise.name}`)
+    const handleCardClick = (exercise) => {
+        localStorage.setItem(`${exercise.name}`, JSON.stringify(exercise))
+        navigate(`/details/${exercise.name}`)
 
-}
-
-
-
-
+    }
     return (  // Then we take the fetched api data and place them within the clickable card compoment then the card this placed within a slider 
         <div>
             <Slider {...sliderSettings}
