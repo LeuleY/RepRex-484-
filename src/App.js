@@ -10,7 +10,7 @@ import VideoList from './Components/VideoList';
 import Calculator from './Components/Calculator'
 import About from './Components/About';
 import Community from './Components/Community';
-import HomePage from './Components/HomePage';
+import HomePage from './Components/HomePage.jsx';
 
 
 
@@ -19,13 +19,14 @@ function App() {
   return (
     <div >
    
-        {/* <Routes>
-          <Route index element={<Login/>}/> 
+        <Routes>
+          {/* <Route index element={<Login/>}/>  */}
+          <Route path='/' element={<HomePage/>} />
           <Route path='/login' element={<Login/>} />
           <Route path='/register' element={<Register/>} />
           <Route path='/details/:exercise/' element={<DetailsPage/>}/>
           <Route path='/cards' element={<CardList/>}/>
-        </Routes> */}
+        </Routes>
    
    
    <HomePage></HomePage>
