@@ -74,4 +74,8 @@ h1::after{
 
 }
 
+.alert_text{
+    color: red;
+}
+
 

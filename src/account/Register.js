@@ -4,6 +4,7 @@ import './Login.css';
 const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState(''); 
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -16,32 +17,32 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    setErrorMessage('');
+
     if (username.trim() === '') {
-      alert('Username cannot be blank!');
+      setErrorMessage('Username cannot be blank!');
       return;
     }
     
     if (password.trim() === '') {
-      alert('Password cannot be blank!');
+      setErrorMessage('Password cannot be blank!');
       return;
     }
 
-    // Validation for username
     if (username.length < 6) {
-      alert('Username must be at least 6 characters!');
+      setErrorMessage('Username must be at least 6 characters!');
       return;
     } else if (username.length > 24) {
-      alert('Username must be less than 24 characters!');
+      setErrorMessage('Username must be less than 24 characters!');
       return;
     }
 
-    // Validation for password
     if (password.length < 6) {
-      alert('Password must be at least 6 characters!');
+      setErrorMessage('Password must be at least 6 characters!');
       return;
     }
 
-    // Proceed with registration logic
+    setErrorMessage('');
     console.log("Registered with username:", username, "and password:", password);
   };
 
@@ -65,7 +66,10 @@ const Register = () => {
               onChange={handlePasswordChange}
             />
             <button type="submit" id='bttn'>Register</button>
-            
+
+            {/* Display the error message here */}
+            {errorMessage && <p className="alert_text">{errorMessage}</p>}
+
             <a href='./'>Back to Sign in Page</a>
           </form>
         </div>
