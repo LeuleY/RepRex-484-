@@ -5,10 +5,13 @@
     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, .7)),
     url('../../public/loginphoto.png');
     background-size: contain; 
+    /* background-size: 100% 100vh;  */
     background-position: center; 
     height: 100vh; 
     justify-content: center; 
     overflow: hidden; 
+    
+
 }
 
 .centerbox{
@@ -36,11 +39,16 @@
     padding: 20px 60px 70px;
     text-align: center;
     opacity: 90%;
+    border: 5px solid rgb(0, 0, 0); /* Add thick black border */
+    border-radius: 10px;
+    
 }
 
 .loginbox{
     display: flex;
     height: 30vh;
+    border-radius: 10px;
+    border: black;
 }
 
 input{
