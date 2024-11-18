@@ -74,7 +74,7 @@ function HomePage() {
                     <h1>RepRex</h1>
                 </div>
                 <nav>
-                    <Link to="/HomePage">Home</Link>
+                    <Link to="/HomePage">HOME</Link>
                     <Link to="#">RexLog</Link>
                     <Link to="/Community">Community</Link>
                     <Link to="/About">About</Link>
@@ -92,6 +92,7 @@ function HomePage() {
                     )}
 
                     <Link to="/Profile"><img src="/homepageAssets/User.png" alt="User" /></Link>
+                   
                 </nav>
             </header>
 
