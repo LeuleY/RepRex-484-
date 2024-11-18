@@ -1,41 +1,28 @@
-
+// App.js
 import React from 'react';
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
-import './ComponentCSS/App.css';
-import Login from './account/Login'
-import Register from './account/Register'
-import CardList from './Components/CardList';
-import DetailsPage from './Components/DetailsPage';
-import VideoList from './Components/VideoList';
-import Calculator from './Components/Calculator'
+import { Route, Routes } from 'react-router-dom';
+import Login from './account/Login';
+import Register from './account/Register';
+import HomePage from './Components/HomePage';
+import Profile from './Components/Profile';
 import About from './Components/About';
 import Community from './Components/Community';
-import HomePage from './Components/HomePage.jsx';
 
-
-
+const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem('token');
+  return token ? children : <Login />;
+};
 
 function App() {
   return (
-    <div >
-   
-        <Routes>
-          {/* <Route index element={<Login/>}/>  */}
-          <Route path='/' element={<HomePage/>} />
-          <Route path='/login' element={<Login/>} />
-          <Route path='/register' element={<Register/>} />
-          <Route path='/details/:exercise/' element={<DetailsPage/>}/>
-          <Route path='/cards' element={<CardList/>}/>
-        </Routes>
-   
-   
-   <HomePage></HomePage>
-   {/* <Calculator></Calculator> */}
- 
-
-
-
-    </div>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/homepage" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
+      <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+      <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
+      <Route path="/community" element={<ProtectedRoute><Community /></ProtectedRoute>} />
+    </Routes>
   );
 }
 
