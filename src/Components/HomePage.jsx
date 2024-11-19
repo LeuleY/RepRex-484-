@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../ComponentCSS/HomePageStyles.css';
+import NavBar from './NavBar';
+
 
 function HomePage() {
     const [username, setUsername] = useState('');
@@ -68,6 +70,7 @@ function HomePage() {
     return (
         <div>
             {/* Header Section */}
+            
             <header>
                 <div className="logo">
                     <img src="" alt="RepRex Logo" />
@@ -95,6 +98,8 @@ function HomePage() {
                    
                 </nav>
             </header>
+
+            {/* <NavBar/> */}
 
             {/* Muscle Group Section */}
             <section className="muscle-groups-wrapper">
