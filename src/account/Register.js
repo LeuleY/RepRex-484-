@@ -65,7 +65,7 @@ const Register = () => {
             />
             <button type="submit" id='bttn'>Register</button>
 
-            {message && <p>{message}</p>}
+            {message && <p style={{ color: 'red', fontSize: '14px' }} >{message}</p>}
 
             <a href='./'>Back to Sign in Page</a>
           </form>

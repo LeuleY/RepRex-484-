@@ -61,7 +61,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
             <button type="submit" id='bttn'>Login</button>
-            {message && <p>{message}</p>}
+            {message && <p style={{ color: 'red', fontSize: '14px' }} >{message}</p>}
             <p>Don't have an account? <a href='/register'>Register Here</a></p>
           </form>
         </div>
