@@ -1,0 +1,120 @@
+@import './HomePageStyles.css';
+
+/* Calculator specific styles */
+.calculator-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.calculator-container h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.calculator-description {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.calculator-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-weight: bold;
+    color: #444;
+}
+
+.input-group input {
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.input-group input:focus {
+    border-color: #b54a3d;
+    outline: none;
+}
+
+.calculate-button {
+    background-color: #b54a3d;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.calculate-button:hover {
+    background-color: #933a30;
+}
+
+.result-container {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.result-container h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.result {
+    font-size: 2em;
+    color: #b54a3d;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.percentage-table {
+    margin-top: 20px;
+}
+
+.percentage-table h4 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.percentage-table table {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+.percentage-table th,
+.percentage-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.percentage-table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.percentage-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
