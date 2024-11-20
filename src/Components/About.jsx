@@ -12,7 +12,7 @@ const About = () => {
 
   return (
     <div>
-      <NavBar username={username} handleLogout={handleLogout} />
+      <NavBar />
       <h2>About RepRex</h2>
       <p>RepRex is your ultimate fitness companion app...</p>
     </div>
