@@ -42,7 +42,6 @@ function Community() {
     return (
         
         <div className="community-page">
-            {/* Header Section */}
             <NavBar/>
 
 

@@ -21,6 +21,7 @@ function App() {
       <Route path="/homepage" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
       <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
+      <Route path="/rexlog" element={<ProtectedRoute><About /></ProtectedRoute>} />
       <Route path="/community" element={<ProtectedRoute><Community /></ProtectedRoute>} />
     </Routes>
   );

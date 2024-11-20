@@ -69,7 +69,6 @@ function HomePage() {
 
     return (
         <div>
-            {/* Header Section */}
            
 
             <NavBar/>
