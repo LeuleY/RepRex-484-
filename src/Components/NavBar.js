@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import '../ComponentCSS/NavBar.css';
+import axios from 'axios';
+
  
 
 
@@ -18,6 +20,33 @@ const navigate = useNavigate();
 
 const [username, setUsername] = useState('');
 
+// Fetch user profile on component mount
+useEffect(() => {
+  const fetchUserProfile = async () => {
+      const token = localStorage.getItem('token');
+
+      if (!token) {
+          navigate('/');
+          return;
+      }
+
+      try {
+          const response = await axios.get('http://localhost:5001/api/users/profile', {
+              headers: {
+                  Authorization: `Bearer ${token}`,
+              },
+          });
+          setUsername(response.data.username);
+      } catch (error) {
+          console.error('Error fetching profile:', error);
+          navigate('/');
+      }
+  };
+
+  fetchUserProfile();
+}, [navigate]);
+
+
 
   return (
     
@@ -26,6 +55,7 @@ const [username, setUsername] = useState('');
         <img src="" alt="RepRex Logo" />
         <h1>RepRex</h1>
     </div>
+    
     <nav>
         <Link to="/HomePage">HOME</Link>
         <Link to="#">RexLog</Link>
@@ -35,7 +65,6 @@ const [username, setUsername] = useState('');
         {/* Conditionally Render Username and Logout Button */}
         {username ? (
         <>
-          <Link to="#">RexLog</Link>
           <span className="username-display">Hello, {username}</span>
           <button className="logout-button" onClick={handleLogout}>
             Logout
