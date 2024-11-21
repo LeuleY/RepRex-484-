@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../ComponentCSS/Community.css';
+import NavBar from './NavBar';
+
 
 function Community() {
     //Current community page is temporary, base structure should remain relativly similar but added functionality would need implemented with Mongo later
@@ -38,21 +40,10 @@ function Community() {
     //The actual should remain relativly similar, just need to modify some of the authentication.
     //Ex. Only show delete function if the user posted it, only allow likes once per user, etc
     return (
+        
         <div className="community-page">
-            {/* Header Section */}
-            <header>
-                <div className="logo">
-                    <img src="logo.png" alt="RepRex Logo" />
-                    <h1>RepRex</h1>
-                </div>
-                <nav>
-                    <Link to="/">Home</Link>
-                    <Link to="#">RexLog</Link>
-                    <Link to="/Community">Community</Link>
-                    <Link to="/About">About</Link>
-                    <Link to="#"><img src="User.png" alt="User" /></Link>
-                </nav>
-            </header>
+            <NavBar/>
+
 
             <main className="community-content">
                 {/* Post Creation Form */}

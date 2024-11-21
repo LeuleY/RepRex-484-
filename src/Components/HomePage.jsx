@@ -69,37 +69,9 @@ function HomePage() {
 
     return (
         <div>
-            {/* Header Section */}
-            
-            <header>
-                <div className="logo">
-                    <img src="" alt="RepRex Logo" />
-                    <h1>RepRex</h1>
-                </div>
-                <nav>
-                    <Link to="/HomePage">HOME</Link>
-                    <Link to="#">RexLog</Link>
-                    <Link to="/Community">Community</Link>
-                    <Link to="/About">About</Link>
+           
 
-                    {/* Conditionally Render Username and Logout Button */}
-                    {username ? (
-                        <>
-                            <span className="username-display">Hello, {username}</span>
-                            <button className="logout-button" onClick={handleLogout}>
-                                Logout
-                            </button>
-                        </>
-                    ) : (
-                        <Link to="/register">Register</Link>
-                    )}
-
-                    <Link to="/Profile"><img src="/homepageAssets/User.png" alt="User" /></Link>
-                   
-                </nav>
-            </header>
-
-            {/* <NavBar/> */}
+            <NavBar/>
 
             {/* Muscle Group Section */}
             <section className="muscle-groups-wrapper">

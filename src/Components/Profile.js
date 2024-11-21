@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import NavBar from '../account/NavBar';
+import NavBar from './NavBar';
 
 const Profile = () => {
   const [userData, setUserData] = useState({});
