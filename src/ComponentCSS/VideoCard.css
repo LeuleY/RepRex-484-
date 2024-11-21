@@ -1,0 +1,65 @@
+/* VideoCard Container */
+.videoCardContain {
+    width: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+    margin: 16px;
+}
+
+.videoCardContain:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Link Styling */
+.videoCardContain a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* Thumbnail Image */
+.videoCardContain img {
+    width: 100%;
+    height: 168px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Title Styling */
+.videoCardContain h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 12px 12px 8px 12px;
+    line-height: 1.4;
+    color: #0f0f0f;
+    /* Modern standard property */
+    display: -webkit-box;
+    display: box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    box-orient: vertical;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    /* Fallback for browsers that don't support line-clamp */
+    max-height: 2.8em; /* line-height * number of lines */
+}
+
+/* Channel Name Styling */
+.videoCardContain p {
+    font-size: 14px;
+    color: #606060;
+    margin: 0 12px 8px 12px;
+    line-height: 1.2;
+}
+
+/* View Count Styling */
+.videoCardContain h4:last-child {
+    font-size: 14px;
+    color: #606060;
+    font-weight: normal;
+    margin: 0 12px 12px 12px;
+}
