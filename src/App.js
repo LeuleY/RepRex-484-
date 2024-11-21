@@ -7,6 +7,7 @@ import HomePage from './Components/HomePage';
 import Profile from './Components/Profile';
 import About from './Components/About';
 import Community from './Components/Community';
+import ExerciseInput from './Components/ExerciseInput';
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('token');
@@ -23,6 +24,7 @@ function App() {
       <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
       <Route path="/rexlog" element={<ProtectedRoute><About /></ProtectedRoute>} />
       <Route path="/community" element={<ProtectedRoute><Community /></ProtectedRoute>} />
+      <Route path="/workoutInput" element={<ProtectedRoute><Input /></ProtectedRoute>} />
     </Routes>
   );
 }

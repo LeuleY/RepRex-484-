@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors'); // NEW CODE: Import CORS middleware
 const userRoutes = require('./routes/userRoutes');
+const workoutRoutes = require('./routes/workoutRoutes');
 
 dotenv.config({ path: './config.env' });
 
@@ -23,6 +24,7 @@ app.use(express.json());
 
 // Use the user routes
 app.use('/api/users', userRoutes);
+app.use('/api/workouts', workoutRoutes);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));

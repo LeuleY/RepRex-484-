@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../ComponentCSS/ExerciseInput.css';
 import NavBar from './NavBar';
+import axios from 'axios';
 
 const ExerciseInput = () => {
     const [activeTab, setActiveTab] = useState('weightlifting');
@@ -40,25 +41,65 @@ const ExerciseInput = () => {
         'Rowing'
     ];
 
-    const handleWeightliftingSubmit = (e) => {
+    const handleWeightliftingSubmit = async (e) => {
         e.preventDefault();
-        console.log('Weightlifting workout:', weightliftingData);
         setWeightliftingData({
-            exerciseType: '',
-            weight: '',
-        reps: ''
-    });
-    };
-
-    const handleCardioSubmit = (e) => {
-        e.preventDefault();
-        console.log('Cardio workout:', cardioData);
-        setCardioData({
-            exerciseType: '',
-            distance: '',
-            time: '',
-            incline: ''
+            exerciseType,
+            weight,
+            reps
         });
+        try {
+            const response = await axios.post('http://localhost:5001/api/workouts/createWeights', {
+                workoutType: exerciseType,
+                weight: weight,
+                reps: reps,
+                dateTime: Date.now()
+            });
+
+        setMessage(response.data.message);
+        } catch (error) {
+            // Handle errors
+            if (error.response) {
+                // Server responded with a status other than 2xx
+                setMessage(error.response.data.message || 'Registration failed');
+            } else if (error.request) {
+                // Request was made but no response received
+                setMessage('No response from server');
+            } else {
+                // Something else happened
+                setMessage('An error occurred');
+                }
+        }
+    };
+    const handleCardioSubmit = async (e) => {
+        e.preventDefault();
+        setCardioData({
+            exerciseType,
+            distance,
+            time,
+            incline
+        });
+        try {
+            const response = await axios.post('http://localhost:5001/api/workouts/createCardio', {
+                workoutType: exerciseType,
+                distance: distance,
+                time: time,
+                incline: incline,
+                dateTime: Date.now()
+            });
+            setMessage(response.data.message);
+        } catch (error) {
+            if (error.response) {
+                // Server responded with a status other than 2xx
+                setMessage(error.response.data.message || 'Registration failed');
+            } else if (error.request) {
+                // Request was made but no response received
+                setMessage('No response from server');
+            } else {
+                // Something else happened
+                setMessage('An error occurred');
+            }
+        }
     };
 
     return (
