@@ -1,11 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import '../ComponentCSS/HomePageStyles.css';
-
+import NavBar from './NavBar';
 
 
 function HomePage() {
+    const [username, setUsername] = useState('');
     const [currentPosition, setCurrentPosition] = useState(0);
+    const navigate = useNavigate();
+
+    // Fetch user profile on component mount
+    useEffect(() => {
+        const fetchUserProfile = async () => {
+            const token = localStorage.getItem('token');
+
+            if (!token) {
+                navigate('/');
+                return;
+            }
+
+            try {
+                const response = await axios.get('http://localhost:5001/api/users/profile', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                setUsername(response.data.username);
+            } catch (error) {
+                console.error('Error fetching profile:', error);
+                navigate('/');
+            }
+        };
+
+        fetchUserProfile();
+    }, [navigate]);
+
+    // Logout function
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/');
+    };
+
     const muscleGroups = [
         { name: 'Chest', image: '/homepageAssets/Chest.png' },
         { name: 'Back', image: '/homepageAssets/Back.png' },
@@ -29,22 +66,12 @@ function HomePage() {
             setCurrentPosition(prev => prev + 1);
         }
     };
+
     return (
         <div>
-            {/* Header Section */}
-            <header>
-                <div className="logo">
-                    <img src="" alt="RepRex Logo" />
-                    <h1>RepRex</h1>
-                </div>
-                <nav>
-                    <Link to="/">Home</Link>
-                    <Link to="#">RexLog</Link>
-                    <Link to="/Community">Community</Link>
-                    <Link to="/About">About</Link>
-                    <Link to="#"><img src="/homepageAssets/User.png" alt="User" /></Link>
-                </nav>
-            </header>
+           
+
+            <NavBar/>
 
             {/* Muscle Group Section */}
             <section className="muscle-groups-wrapper">
@@ -55,7 +82,7 @@ function HomePage() {
                 >
                     &#10094;
                 </button>
-                
+
                 <div className="muscle-groups-container">
                     <div
                         className="muscle-groups"
@@ -65,7 +92,7 @@ function HomePage() {
                     >
                         {muscleGroups.map((muscle, index) => (
                             <div key={index} className="muscle">
-                                <Link to={'/${muscle.name'}>
+                                <Link to={`/${muscle.name}`}>
                                     <img src={muscle.image} alt={muscle.name} />
                                     <p>{muscle.name}</p>
                                 </Link>
@@ -73,7 +100,7 @@ function HomePage() {
                         ))}
                     </div>
                 </div>
-                
+
                 <button
                     className="scroll-button right"
                     onClick={scrollRight}
@@ -91,11 +118,11 @@ function HomePage() {
             {/* Testimonials Section */}
             <section className="testimonials">
                 <div className="testimonial">
-                    <img src="/homepageAssets//Before-After-1.png" alt="Before and After 1" />
+                    <img src="/homepageAssets/Before-After-1.png" alt="Before and After 1" />
                     <blockquote>"It was nice to have an easy way to gauge my progress"</blockquote>
                 </div>
                 <div className="testimonial">
-                    <img src='/homepageAssets/Before-After-2.png' alt="Before and After 2" />
+                    <img src="/homepageAssets/Before-After-2.png" alt="Before and After 2" />
                     <blockquote>"My son showed me the app, and it has been the most instructive mental boost in my weight loss journey."</blockquote>
                 </div>
             </section>
@@ -112,14 +139,6 @@ function HomePage() {
                             <li><Link to="/Calculator">1RM Calculator</Link></li>
                         </ul>
                     </div>
-                    <div className="quick-links">
-                        <h3>Quick Links</h3>
-                        <ul>
-                            <li><Link to="#">Exercise Lab</Link></li>
-                            <li><Link to="#">Cardio</Link></li>
-                            <li><Link to="#">Weight Loss</Link></li>
-                        </ul>
-                    </div>
                     <div className="subscribe">
                         <h3>Rep Letter</h3>
                         <form>
@@ -128,15 +147,11 @@ function HomePage() {
                         </form>
                     </div>
                 </div>
-            
+
                 <div className="attributions">
                     <h3>Image Credits</h3>
-                    <p>All muscle group and transformation images were created using DALL-E 3 by OpenAI.
-                        For more information about DALL-E, visit <a href="https://openai.com/dall-e-3">OpenAI's DALL-E 3 page</a>.
-                    </p>
-                    <p>User icon image in the upper right corner was created by Smashicons and downloaded from FLATICON.
-                        <a href="https://www.flaticon.com/free-icons/pac-man">Pac man icons created by Smashicons - Flaticon</a>
-                    </p>
+                    <p>All muscle group and transformation images were created using DALL-E 3 by OpenAI. For more information about DALL-E, visit <a href="https://openai.com/dall-e-3">OpenAI's DALL-E 3 page</a>.</p>
+                    <p>User icon image in the upper right corner was created by Smashicons and downloaded from FLATICON. <a href="https://www.flaticon.com/free-icons/pac-man">Pac man icons created by Smashicons - Flaticon</a></p>
                 </div>
             </footer>
         </div>

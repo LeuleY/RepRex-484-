@@ -1,28 +1,16 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import '../ComponentCSS/HomePageStyles.css';
+import React, { useState } from 'react';
+import NavBar from './NavBar';
 
-function About() {
-    return (
-        <div>
-            {/* Header Section */}
-            <header>
-                <div className="logo">
-                    <img src="logo.png" alt="RepRex Logo" />
-                    <h1>RepRex</h1>
-                </div>
-                <nav>
-                    <Link to="/">Home</Link>
-                    <Link to="#">RexLog</Link>
-                    <Link to="/Community">Community</Link>
-                    <Link to="/About">About</Link>
-                    <Link to="#"><img src="User.png" alt="User" /></Link>
-                </nav>
-            </header>
+const About = () => {
+  
 
-            <h1>This is the about page! This will contain information about the authors</h1>
-        </div>
-    );
-}
+  return (
+    <div>
+      <NavBar />
+      <h2>REXLOG</h2>
+      <p>RepRex is your ultimate fitness companion app...</p>
+    </div>
+  );
+};
 
 export default About;

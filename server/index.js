@@ -1,23 +1,28 @@
-const {MongoClient} = require("mongodb")
-require("dotenv").config({path: "config.env"})
-const express = require('express')
-const corse = require('cors')
+// server/index.js
+const express = require('express');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const cors = require('cors'); // NEW CODE: Import CORS middleware
+const userRoutes = require('./routes/userRoutes');
 
-async function main(){
-    const db = process.env.ATLAS_URI
-    const client = new MongoClient(db)
+dotenv.config({ path: './config.env' });
 
-    try{
-        await client.connect()
-        const collections = await client.db("RepRex_Data").collections()
-        collections.forEach((collection) => console.log(collection.s.namespace.collection))
-    }
-    catch(e){
-        console.error(e)
-    }
-    finally{
-        await client.close()
-    }
-}
+const MONGODB_URI = process.env.ATLAS_URI;
 
-main()
+mongoose.connect(MONGODB_URI)
+  .then(() => {
+    console.log('✅ Successfully connected to MongoDB Atlas');
+  })
+  .catch((error) => {
+    console.error('❌ MongoDB connection error:', error);
+  });
+
+const app = express();
+app.use(cors()); // NEW CODE: Enable CORS for all routes
+app.use(express.json());
+
+// Use the user routes
+app.use('/api/users', userRoutes);
+
+const PORT = process.env.PORT || 5001;
+app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
