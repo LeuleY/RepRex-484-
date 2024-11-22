@@ -6,7 +6,7 @@ const cors = require('cors'); // NEW CODE: Import CORS middleware
 const userRoutes = require('./routes/userRoutes');
 const workoutRoutes = require('./routes/workoutRoutes');
 
-dotenv.config({ path: './config.env' });
+dotenv.config({ path: './server/config.env' });
 
 const MONGODB_URI = process.env.ATLAS_URI;
 

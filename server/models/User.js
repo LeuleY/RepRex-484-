@@ -18,6 +18,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  workouts: {
+    type: Array,
+    required: true,
+    default: [],
+  }
 }, {
   timestamps: true,
 });

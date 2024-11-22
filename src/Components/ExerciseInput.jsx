@@ -1,24 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../ComponentCSS/ExerciseInput.css';
 import NavBar from './NavBar';
 import axios from 'axios';
 
 const ExerciseInput = () => {
     const [activeTab, setActiveTab] = useState('weightlifting');
-
-  // Updated weightlifting state to remove sets
-    const [weightliftingData, setWeightliftingData] = useState({
-        exerciseType: '',
-        weight: '',
-        reps: ''
-    });
-
-    const [cardioData, setCardioData] = useState({
-        exerciseType: '',
-        distance: '',
-        time: '',
-        incline: ''
-    });
+    const [exerciseType, setExercise] = useState('');
+    const [weight, setWeight] = useState('');
+    const [reps, setReps] = useState('');
+    const [distance, setDistance] = useState('');
+    const [time, setTime] = useState('');
+    const [incline, setIncline] = useState('');
+    const [message, setMessage] = useState('');
+    const [userId, setUid] = useState('');
 
     const weightliftingExercises = [
         'Bench Press',
@@ -41,22 +35,30 @@ const ExerciseInput = () => {
         'Rowing'
     ];
 
-    const handleWeightliftingSubmit = async (e) => {
+    const HandleWeightliftingSubmit = async (e) => {
         e.preventDefault();
-        setWeightliftingData({
-            exerciseType,
-            weight,
-            reps
-        });
+        const token = localStorage.getItem('token');
+        try {
+            const response = await axios.get('http://localhost:5001/api/users/profile', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            const user = response.data;
+            setUid(user._id);
+            } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
         try {
             const response = await axios.post('http://localhost:5001/api/workouts/createWeights', {
                 workoutType: exerciseType,
                 weight: weight,
                 reps: reps,
-                dateTime: Date.now()
+                dateTime: Date.now(),
+                userId: userId
             });
 
-        setMessage(response.data.message);
+            setMessage(response.data.message);
         } catch (error) {
             // Handle errors
             if (error.response) {
@@ -71,21 +73,28 @@ const ExerciseInput = () => {
                 }
         }
     };
-    const handleCardioSubmit = async (e) => {
+    const HandleCardioSubmit = async (e) => {
         e.preventDefault();
-        setCardioData({
-            exerciseType,
-            distance,
-            time,
-            incline
-        });
+        const token = localStorage.getItem('token');
+        try {
+            const response = await axios.get('http://localhost:5001/api/users/profile', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            const user = response.data;
+            setUid(user._id);
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
         try {
             const response = await axios.post('http://localhost:5001/api/workouts/createCardio', {
                 workoutType: exerciseType,
                 distance: distance,
-                time: time,
+                duration: time,
                 incline: incline,
-                dateTime: Date.now()
+                dateTime: Date.now(),
+                userId: userId
             });
             setMessage(response.data.message);
         } catch (error) {
@@ -124,10 +133,10 @@ const ExerciseInput = () => {
             <div className="tab-content">
             {/* Weightlifting Form */}
                 {activeTab === 'weightlifting' && (
-                <form onSubmit={handleWeightliftingSubmit} className="workout-input-form">
+                <form onSubmit={HandleWeightliftingSubmit} className="workout-input-form">
                     <div className="form-group">
                         <label>Exercise Type</label>
-                        <select value={weightliftingData.exerciseType} onChange={(e) => setWeightliftingData({...weightliftingData, exerciseType: e.target.value})}required>
+                        <select value={exerciseType} onChange={(e) => setExercise(e.target.value)}required>
                             <option value="">Select Exercise</option>
                             {weightliftingExercises.map((exercise) => (
                             <option key={exercise} value={exercise}>{exercise}</option>
@@ -138,7 +147,7 @@ const ExerciseInput = () => {
                 <div className="form-row">
                     <div className="form-group">
                         <label>Weight (lbs)</label>
-                        <input type="number" value={weightliftingData.weight} onChange={(e) => setWeightliftingData({...weightliftingData, weight: e.target.value})} required min="0"
+                        <input type="number" value={weight} onChange={(e) => setWeight(e.target.value)} required min="0"
                     />
                     </div>
 
@@ -146,8 +155,8 @@ const ExerciseInput = () => {
                         <label>Reps</label>
                         <input
                             type="number"
-                            value={weightliftingData.reps}
-                            onChange={(e) => setWeightliftingData({...weightliftingData, reps: e.target.value})}
+                            value={reps}
+                            onChange={(e) => setReps(e.target.value)}
                             required
                             min="0"
                         />
@@ -162,12 +171,12 @@ const ExerciseInput = () => {
 
             {/* Cardio Form */}
             {activeTab === 'cardio' && (
-                <form onSubmit={handleCardioSubmit} className="workout-input-form">
+                <form onSubmit={HandleCardioSubmit} className="workout-input-form">
                     <div className="form-group">
                         <label>Exercise Type</label>
                         <select
-                            value={cardioData.exerciseType}
-                            onChange={(e) => setCardioData({...cardioData, exerciseType: e.target.value})}
+                            value={exerciseType}
+                            onChange={(e) => setExercise(e.target.value)}
                             required
                         >
                             <option value="">Select Exercise</option>
@@ -182,8 +191,8 @@ const ExerciseInput = () => {
                         <label>Distance (miles)</label>
                         <input
                             type="number"
-                            value={cardioData.distance}
-                            onChange={(e) => setCardioData({...cardioData, distance: e.target.value})}
+                            value={distance}
+                            onChange={(e) => setDistance(e.target.value)}
                             required
                             min="0"
                             step="0.1"
@@ -194,8 +203,8 @@ const ExerciseInput = () => {
                         <label>Time (minutes)</label>
                         <input
                         type="number"
-                        value={cardioData.time}
-                        onChange={(e) => setCardioData({...cardioData, time: e.target.value})}
+                        value={time}
+                        onChange={(e) => setTime(e.target.value)}
                         required
                         min="0"
                     />
@@ -205,8 +214,8 @@ const ExerciseInput = () => {
                         <label>Incline (%)</label>
                         <input
                             type="number"
-                            value={cardioData.incline}
-                            onChange={(e) => setCardioData({...cardioData, incline: e.target.value})}
+                            value={incline}
+                            onChange={(e) => setIncline(e.target.value)}
                             required
                             min="0"
                             max="15"
