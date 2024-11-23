@@ -19,6 +19,8 @@ const newWorkoutWeights = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 }
+
+//Add new cardio workout to user account
 const newWorkoutCardio = async (req, res) => {
     const {distance, duration, incline, workoutType, dateTime, userId} = req.body;
 
@@ -38,6 +40,7 @@ async function addWorkoutToUser(workoutId, userId){
     await acc.save();
 }
 
+//Delete workout from user account
 const deleteWorkout = async (req, res) => {
     const {workoutId, userId} = req.body;
     console.log('📥 Incoming workout deletion request: ', req.body);
@@ -57,4 +60,22 @@ const deleteWorkout = async (req, res) => {
     }
 }
 
-module.exports = {newWorkoutWeights, newWorkoutCardio, deleteWorkout};
+//Gets user's workouts
+const getWorkouts = async (req, res) => {
+    const {userId} = req.body;
+    try{
+        var acc = await User.findById(userId);
+        var workoutIds = acc.workouts;
+        var workouts = [];
+        for(var i = 0; i < workoutIds.length; i++){
+            var curr = Workout.findById(workoutIds[i]);
+            workouts.push(curr);
+        }
+        res.status(200).json(workouts);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+
+}
+
+module.exports = {newWorkoutWeights, newWorkoutCardio, deleteWorkout, getWorkouts};
