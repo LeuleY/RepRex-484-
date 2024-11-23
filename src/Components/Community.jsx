@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../ComponentCSS/Community.css';
 import NavBar from './NavBar';
+import axios from 'axios';
 
 
 function Community() {
@@ -10,8 +11,16 @@ function Community() {
     const [newPost, setNewPost] = useState('');
     const [imageUrl, setImageUrl] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.get('http://localhost:5001/api/users/profile', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
         if (newPost.trim() !== '') {
             const post = {
                 id: Date.now(),
@@ -19,12 +28,21 @@ function Community() {
                 image: imageUrl,
                 likes: 0,
                 timestamp: new Date().toLocaleString(),
-                author: 'User' // This would be replaced with actual user later
+                author: response.data.username
             };
             setPosts([post, ...posts]);
             setNewPost('');
             setImageUrl('');
+            await axios.post("http://localhost:5002/posts/create", {
+                text:post.content,
+                creator:post.author,
+                time:post.timestamp
+            }).then(res => res.data).catch(error => {console.log(error)});
+            
         }
+    } catch (error) {
+        console.error('Error fetching profile:', error);
+    }
     };
 
     const handleDelete = (postId) => {

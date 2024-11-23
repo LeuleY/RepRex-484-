@@ -18,27 +18,28 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 //app.use(express.urlencoded({extended:false}));
-app.post("./create", async (req, res)=>{
+app.post("/posts/create", async (req, res)=>{
     console.log("SENDING STUFF");
     try{
-        if(req.body.post === ""){
+        if(req.body.text === ""){
             console.log("there is no content");
             res.status(401).json({message:"Cannot post if there is no content"});
         }
         else{
             console.log("message should be sent");
             //const post = new Post({poster_id:req.body.author, content:req.body.post, likes:[], posted_date:req.body.timestamp});
-            await Post.create({poster_id:req.body.author, content:req.body.post, likes:[], posted_date:req.body.timestamp});
+            Post.create({poster_id:req.body.creator, content:req.body.text, likes:[], posted_date:req.body.time});
             res.sendStatus(200);
         }
     }
     catch(error){
         console.log("message could not be sent");
+        console.log(req.body);
         res.status(406).json({message:"Cannot send post. Please try again"});
     }
 });
 
-app.post("./like", async (req, res)=>{
+app.post("/posts/like", async (req, res)=>{
     try{
         var post = await Post.find({_id:req.body.id});
         var add = true;
@@ -59,7 +60,7 @@ app.post("./like", async (req, res)=>{
     }
 });
 
-app.post("./grab", async (req, res)=>{
+app.post("/posts/grab", async (req, res)=>{
     try{
         var postsList = [];
         for(let i = 0; i < 10; i++){
