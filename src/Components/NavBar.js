@@ -57,7 +57,7 @@ useEffect(() => {
     </div>
     
     <nav>
-        <Link to="/HomePage">HOME</Link>
+        <Link to="/HomePage">Home</Link>
         <Link to="/RexLog">RexLog</Link>
         <Link to="/Community">Community</Link>
         <Link to="/About">About</Link>

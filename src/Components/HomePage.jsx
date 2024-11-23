@@ -43,14 +43,24 @@ function HomePage() {
         navigate('/');
     };
 
+    // This handles the on click for the muscle group section 
+    const handleMuscleClick = (muscle) => {
+        navigate(`/cards/${muscle.name}`, { state: { muscle: muscle.name } });
+    }; 
+
     const muscleGroups = [
-        { name: 'Chest', image: '/homepageAssets/Chest.png' },
-        { name: 'Back', image: '/homepageAssets/Back.png' },
-        { name: 'Legs', image: '/homepageAssets/legs.png' },
-        { name: 'Shoulders', image:'/homepageAssets/shoulders.png' },
-        { name: 'Arms', image: '/homepageAssets/Arms.png' },
-        { name: 'Abs', image: '/homepageAssets/Abs.png' },
-        { name: 'Cardio', image: '/homepageAssets/Cardio.png' }
+        { name: 'Chest', image: '/homepageAssets/Chest.png', displayName:'Chest' },
+        { name: 'Lats', image: '/homepageAssets/Back.png', displayName: 'Lats' },
+        { name: 'quadriceps', image: '/homepageAssets/legs.png', displayName:'Quads'},
+        { name: 'Shoulders', image:'/homepageAssets/shoulders.png', displayName:'Shoulders' },
+        { name: 'Biceps', image: '/homepageAssets/Arms.png', displayName:'Biceps'},
+        { name: 'Abdominals', image: '/homepageAssets/Abs.png', displayName:'Abs'  },
+        { name: 'Calves', image: '/homepageAssets/Calf.png',displayName: 'Calves'}, 
+        { name: 'lower_back', image: '/homepageAssets/LowerBack.png',displayName: 'Lower Back'}, 
+        { name: 'Traps', image: '/homepageAssets/Traps.png',displayName: 'Traps'},
+        { name: 'Triceps', image: '/homepageAssets/Triceps.png',displayName: 'Triceps'}, 
+        { name: 'Glutes', image: '/homepageAssets/Glutes.png',displayName: 'Glutes'}
+
     ];
 
     const maxScroll = muscleGroups.length - 4;
@@ -90,16 +100,16 @@ function HomePage() {
                             transform: `translateX(-${currentPosition * 140}px)`
                         }}
                     >
-                        {muscleGroups.map((muscle, index) => (
-                            <div key={index} className="muscle">
-                                <Link to={`/${muscle.name}`}>
-                                    <img src={muscle.image} alt={muscle.name} />
-                                    <p>{muscle.name}</p>
-                                </Link>
+                       {muscleGroups.map((muscle, index) => (
+                        <div key={index} className="muscle">
+                            <div className="muscleIcons" onClick={() => handleMuscleClick(muscle)}>
+                                <img src={muscle.image} alt={muscle.displayName} />
+                                <p>{muscle.displayName}</p>
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    ))}
                 </div>
+            </div>
 
                 <button
                     className="scroll-button right"

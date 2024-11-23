@@ -3,19 +3,24 @@ import ClickableCard from "./ClickableCard";
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, useLocation, useParams } from 'react-router-dom';
+import NavBar from "./NavBar";
+import Footer from "./Footer";
 import '../ComponentCSS/Cards.css'
+
 
 //!!!!!!!
 //NOTE JS AND JSX FILES ARE BASICALLY THE SAME BUT IT'S RECOMMEND TO USE JSX FILES INSTEAD 
 
-function CardList({ muscle = "chest" }) { // WHEN YOU CALL CARD LIST YOU MUST PASS A VALUE FOR MUSCLE CATEGORY 
-    const apikey = "";  // BLANK ON PURPOSE 
+function CardList() { // WHEN YOU CALL CARD LIST YOU MUST PASS A VALUE FOR MUSCLE CATEGORY 
+    const { muscle } = useParams(); // Get muscle from the URL params
+    const location = useLocation(); // Get muscle from navigation state
+    const apikey = "OkNEOkKX82avKszpBT2cVw==FGO3R5R2b3opoedm";  // BLANK ON PURPOSE 
     const navigate = useNavigate();
     // !!! NOTE DO NOT DO A GIT COMMIT WITH YOUR API, BECAUSE IF YOU DO YOU WILL LOSE IT 
 
-
-    const url = "https://api.api-ninjas.com/v1/exercises?muscle=" + muscle
+    const selectedMuscle = muscle || location.state?.muscle || ""; // Fallback if muscle not passed via URL params
+    const url = "https://api.api-ninjas.com/v1/exercises?muscle=" + selectedMuscle
     const [cardList, setCardList] = useState([]);
     const [descript, setDescript] = useState('');
     const [storeText, setStoreText] = useState("")
@@ -68,6 +73,15 @@ function CardList({ muscle = "chest" }) { // WHEN YOU CALL CARD LIST YOU MUST PA
     }
     return (  // Then we take the fetched api data and place them within the clickable card compoment then the card this placed within a slider 
         <div>
+
+            <nav>
+                <NavBar></NavBar>
+
+            </nav>
+
+
+            <div className="cardListSection">
+
             <Slider {...sliderSettings}
             >
                 {cardList.map((exercise) => (
@@ -83,6 +97,15 @@ function CardList({ muscle = "chest" }) { // WHEN YOU CALL CARD LIST YOU MUST PA
 
                 ))}
             </Slider>
+            </div>
+
+                <footer>
+                    <Footer></Footer>
+
+                </footer>
+
+
+
         </div>
     );
 }
