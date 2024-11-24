@@ -6,9 +6,12 @@ const cors = require('cors'); // NEW CODE: Import CORS middleware
 const userRoutes = require('./routes/userRoutes');
 const workoutRoutes = require('./routes/workoutRoutes');
 
-dotenv.config({ path: './server/config.env' });
+dotenv.config({ path: './config.env' });
 
 const MONGODB_URI = process.env.ATLAS_URI;
+
+console.log('Environment Variable ATLAS_URI:', process.env.ATLAS_URI);
+
 
 mongoose.connect(MONGODB_URI)
   .then(() => {
