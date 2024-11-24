@@ -19,7 +19,9 @@ function ClickableCard({ title = "Hammer Curls", type = "Strength", difficultly 
           <p className="cardtitle">{title}</p>
         </div>
 
-        <hr />
+        <hr className='cardLine'/>
+
+
         <div className='cardInfoWrapper'>
           <p className="cardinfo">Muscle: {muscle}</p>
           <p className="cardinfo">Type: {type}</p>
