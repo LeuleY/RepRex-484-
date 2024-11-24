@@ -1,0 +1,78 @@
+
+/* Wrapper for the search bar */
+.searchBarWrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative; /* Anchor for absolute positioning of the list */
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    margin-top: 25px;
+  }
+  
+  /* Styling for the input field */
+  .SearchBar {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .SearchBar:focus {
+    border-color: #007bff;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+    outline: none;
+  }
+  
+  /* Styling for the dropdown list */
+  .searchBarList {
+    list-style: none;
+    padding: 0;
+    margin: 5px 0 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute; /* Overlay on top of other elements */
+    top: 100%; /* Position below the input field */
+    left: 0;
+    width: 100%;
+    z-index: 10; /* Ensure it appears above other elements */
+    max-height: 200px; /* Limit the height for overflow */
+    overflow-y: auto; /* Add a scrollbar for long lists */
+  }
+  
+  /* Styling for individual list items */
+  .searchBarListItem {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  
+  .searchBarListItem:hover {
+    background: #f1f1f1;
+    transform: translateX(5px); /* Slight movement for a hover effect */
+  }
+  
+  
+  
+  /* Responsive adjustments */
+  @media (max-width: 500px) {
+    .searchBarWrapper {
+      padding: 0 20px;
+    }
+  
+    .SearchBar {
+      font-size: 14px;
+    }
+  
+    .searchBarListItem  {
+      font-size: 12px;
+    }
+  }
+  

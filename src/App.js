@@ -9,6 +9,9 @@ import About from './Components/About';
 import Community from './Components/Community';
 import CardList from './Components/CardList';
 import DetailsPage from './Components/DetailsPage'; 
+import Calculator from './Components/Calculator'; 
+import BMICalc from './Components/BMICalc'; 
+import SearchBar from './Components/SearchBar';
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('token');
@@ -27,6 +30,10 @@ function App() {
       <Route path="/community" element={<ProtectedRoute><Community /></ProtectedRoute>} />
       <Route path="/cards/:muscle" element={<ProtectedRoute><CardList/></ProtectedRoute>} />
       <Route path="/details/:exercise" element={<ProtectedRoute><DetailsPage/></ProtectedRoute>} />
+      <Route path="/1RCalculator" element={<ProtectedRoute><Calculator/></ProtectedRoute>} />
+      <Route path="/BMICalculator" element={<ProtectedRoute><BMICalc/></ProtectedRoute>} />
+      <Route path="/SearchBar" element={<ProtectedRoute><SearchBar/></ProtectedRoute>} />
+
     </Routes>
   );
 }

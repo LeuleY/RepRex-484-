@@ -52,8 +52,7 @@ useEffect(() => {
     
     <header>
     <div className="logo">
-        <img src="" alt="RepRex Logo" />
-        <h1>RepRex</h1>
+        <img id='mainLogo' src="/homepageAssets/RepRexLogo.png" alt="RepRex Logo" />
     </div>
     
     <nav>

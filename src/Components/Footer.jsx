@@ -12,7 +12,8 @@ const Footer = () => {
             <li><Link to="#">Exercise Lab</Link></li>
             <li><Link to="#">Cardio</Link></li>
             <li><Link to="#">Weight Loss</Link></li>
-            <li><Link to="/Calculator">1RM Calculator</Link></li>
+            <li><Link to="/1RCalculator">1RM Calculator</Link></li>
+            <li><Link to="/BMICalculator">BMI Calculator</Link></li>
           </ul>
         </div>
         <div className="subscribe">

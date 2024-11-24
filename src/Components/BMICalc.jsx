@@ -98,6 +98,12 @@ function BMICalc() {
                     muscle mass, bone density, or fat distribution. For a more
                     comprehensive assessment, consult a healthcare professional.
                 </p>
+
+
+                <p>
+
+                    
+                </p>
             </div>
         </div>
     );
