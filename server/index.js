@@ -27,7 +27,7 @@ app.use(express.json());
 
 
 //tester
-app.get('/index', async (req, res) => {
+app.get('/api/DBTest2', async (req, res) => {
   try {
     const db = mongoose.connection;
     if (db.readyState === 1) {
