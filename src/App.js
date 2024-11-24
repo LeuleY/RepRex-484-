@@ -7,6 +7,7 @@ import HomePage from './Components/HomePage';
 import Profile from './Components/Profile';
 import About from './Components/About';
 import Community from './Components/Community';
+import ExerciseInput from './Components/ExerciseInput';
 import CardList from './Components/CardList';
 import DetailsPage from './Components/DetailsPage'; 
 import Calculator from './Components/Calculator'; 
@@ -28,12 +29,12 @@ function App() {
       <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
       <Route path="/rexlog" element={<ProtectedRoute><About /></ProtectedRoute>} />
       <Route path="/community" element={<ProtectedRoute><Community /></ProtectedRoute>} />
+      <Route path="/workoutInput" element={<ProtectedRoute><ExerciseInput /></ProtectedRoute>} />
       <Route path="/cards/:muscle" element={<ProtectedRoute><CardList/></ProtectedRoute>} />
       <Route path="/details/:exercise" element={<ProtectedRoute><DetailsPage/></ProtectedRoute>} />
       <Route path="/1RCalculator" element={<ProtectedRoute><Calculator/></ProtectedRoute>} />
       <Route path="/BMICalculator" element={<ProtectedRoute><BMICalc/></ProtectedRoute>} />
       <Route path="/SearchBar" element={<ProtectedRoute><SearchBar/></ProtectedRoute>} />
-
     </Routes>
   );
 }
