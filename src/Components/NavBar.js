@@ -52,12 +52,11 @@ useEffect(() => {
     
     <header>
     <div className="logo">
-        <img src="" alt="RepRex Logo" />
-        <h1>RepRex</h1>
+        <img id='mainLogo' src="/homepageAssets/RepRexLogo.png" alt="RepRex Logo" />
     </div>
     
     <nav>
-        <Link to="/HomePage">HOME</Link>
+        <Link to="/HomePage">Home</Link>
         <Link to="/RexLog">RexLog</Link>
         <Link to="/Community">Community</Link>
         <Link to="/About">About</Link>

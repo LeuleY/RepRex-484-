@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../ComponentCSS/HomePageStyles.css';
 import NavBar from './NavBar';
+import Footer from './Footer';
+import SearchBar from './SearchBar';
 
 
 function HomePage() {
@@ -43,17 +45,27 @@ function HomePage() {
         navigate('/');
     };
 
+    // This handles the on click for the muscle group section 
+    const handleMuscleClick = (muscle) => {
+        navigate(`/cards/${muscle.name}`, { state: { muscle: muscle.name } });
+    }; 
+
     const muscleGroups = [
-        { name: 'Chest', image: '/homepageAssets/Chest.png' },
-        { name: 'Back', image: '/homepageAssets/Back.png' },
-        { name: 'Legs', image: '/homepageAssets/legs.png' },
-        { name: 'Shoulders', image:'/homepageAssets/shoulders.png' },
-        { name: 'Arms', image: '/homepageAssets/Arms.png' },
-        { name: 'Abs', image: '/homepageAssets/Abs.png' },
-        { name: 'Cardio', image: '/homepageAssets/Cardio.png' }
+        { name: 'Chest', image: '/homepageAssets/Chest.png', displayName:'Chest' },
+        { name: 'Lats', image: '/homepageAssets/Back.png', displayName: 'Lats' },
+        { name: 'quadriceps', image: '/homepageAssets/legs.png', displayName:'Quads'},
+        { name: 'Shoulders', image:'/homepageAssets/shoulders.png', displayName:'Shoulders' },
+        { name: 'Biceps', image: '/homepageAssets/Arms.png', displayName:'Biceps'},
+        { name: 'Abdominals', image: '/homepageAssets/Abs.png', displayName:'Abs'  },
+        { name: 'Calves', image: '/homepageAssets/Calf.png',displayName: 'Calves'}, 
+        { name: 'lower_back', image: '/homepageAssets/LowerBack.png',displayName: 'Lower Back'}, 
+        { name: 'Traps', image: '/homepageAssets/Traps.png',displayName: 'Traps'},
+        { name: 'Triceps', image: '/homepageAssets/Triceps.png',displayName: 'Triceps'}, 
+        { name: 'Glutes', image: '/homepageAssets/Glutes.png',displayName: 'Glutes'}
+
     ];
 
-    const maxScroll = muscleGroups.length - 4;
+    const maxScroll = muscleGroups.length - 8;
 
     const scrollLeft = () => {
         if (currentPosition > 0) {
@@ -72,7 +84,7 @@ function HomePage() {
            
 
             <NavBar/>
-
+            <SearchBar></SearchBar>
             {/* Muscle Group Section */}
             <section className="muscle-groups-wrapper">
                 <button
@@ -90,16 +102,16 @@ function HomePage() {
                             transform: `translateX(-${currentPosition * 140}px)`
                         }}
                     >
-                        {muscleGroups.map((muscle, index) => (
-                            <div key={index} className="muscle">
-                                <Link to={`/${muscle.name}`}>
-                                    <img src={muscle.image} alt={muscle.name} />
-                                    <p>{muscle.name}</p>
-                                </Link>
+                       {muscleGroups.map((muscle, index) => (
+                        <div key={index} className="muscle">
+                            <div className="muscleIcons" onClick={() => handleMuscleClick(muscle)}>
+                                <img src={muscle.image} alt={muscle.displayName} />
+                                <p>{muscle.displayName}</p>
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    ))}
                 </div>
+            </div>
 
                 <button
                     className="scroll-button right"
@@ -127,33 +139,9 @@ function HomePage() {
                 </div>
             </section>
 
-            {/* Footer Section */}
-            <footer>
-                <div className="footer-content">
-                    <div className="quick-links">
-                        <h3>Quick Links</h3>
-                        <ul>
-                            <li><Link to="#">Exercise Lab</Link></li>
-                            <li><Link to="#">Cardio</Link></li>
-                            <li><Link to="#">Weight Loss</Link></li>
-                            <li><Link to="/Calculator">1RM Calculator</Link></li>
-                        </ul>
-                    </div>
-                    <div className="subscribe">
-                        <h3>Rep Letter</h3>
-                        <form>
-                            <input type="email" placeholder="E-mail" required />
-                            <button type="submit">Sign Up</button>
-                        </form>
-                    </div>
-                </div>
-
-                <div className="attributions">
-                    <h3>Image Credits</h3>
-                    <p>All muscle group and transformation images were created using DALL-E 3 by OpenAI. For more information about DALL-E, visit <a href="https://openai.com/dall-e-3">OpenAI's DALL-E 3 page</a>.</p>
-                    <p>User icon image in the upper right corner was created by Smashicons and downloaded from FLATICON. <a href="https://www.flaticon.com/free-icons/pac-man">Pac man icons created by Smashicons - Flaticon</a></p>
-                </div>
-            </footer>
+          
+                <Footer></Footer>
+         
         </div>
     );
 }
