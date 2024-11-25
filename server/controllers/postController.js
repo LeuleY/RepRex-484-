@@ -1,4 +1,5 @@
 const Post = require("../models/post.js");
+const Workout = require("../models/Workouts.js");
 const express = require("express");
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
@@ -27,7 +28,6 @@ app.post("/posts/create", async (req, res)=>{
         }
         else{
             console.log("message should be sent");
-            //const post = new Post({poster_id:req.body.author, content:req.body.post, likes:[], posted_date:req.body.timestamp});
             Post.create({poster_id:req.body.creator, content:req.body.text, likes:[], posted_date:req.body.time});
             res.sendStatus(200);
         }
@@ -41,34 +41,51 @@ app.post("/posts/create", async (req, res)=>{
 
 app.post("/posts/like", async (req, res)=>{
     try{
-        var post = await Post.find({_id:req.body.id});
+        var post = await Post.find({_id:new mongoose.Types.ObjectId(req.body.id)});
+        //var post = await Post.find({_id:new mongoose.Types.ObjectId("6742877aa3def529ff1d5b55")});
+        post = JSON.parse(JSON.stringify(post))[0];
+        console.log(req.body.userName);
         var add = true;
-        for(let i = 0; i < post.likes.length; i++)
-            if(req.body.userId === post.likes[i] || req.body.userId === post.poster_id){
+        for(let i = 0; post.likes !== undefined && i < post.likes.length; i++)
+            if(req.body.userName === post.likes[i] || req.body.userName === post.poster_id){
                 add = false;
                 break;
             }
-        if(add && req.body.id === post._id)
-            post.likes.push(req.body.userId);
-        else if(!add && req.body.id === post._id){
+        //add = true;
+        if(add && req.body.UserName !== post.poster_id)
+            post.likes.push(req.body.userName);
+        else if(!add && req.body.UserName !== post.poster_id){
             post.likes.splice(post.likes.indexOf(req.body.userId), 1);
         }
-        Post.findByIDAndUpdate(post._id, post);
+        console.log(post.likes);
+        await Post.findByIdAndUpdate(post._id, post);
+        res.status(200).json({likeCount:post.likes.length});
     }
     catch(error){
-        res.status(501).json({message:"Cannot update post like count. Please try again"});
+        console.log(error);
+        res.status(406).json({message:"Cannot update post like count. Please try again"});
     }
 });
 
-app.post("/posts/grab", async (req, res)=>{
+app.post("/posts/delete", async(req, res)=>{
+
+});
+
+
+
+app.get("/posts/grab", async (req, res)=>{
     try{
-        var postsList = [];
-        for(let i = 0; i < 10; i++){
-            postsList.push(Post.aggregate([{$sample:{size:1}}]));
-        }
+        var count = parseInt(req.query.count)
+        var postsList = await Post.aggregate([{$sample:{size:count}}]);
+        res.status(200).json(postsList);
     }
     catch(error){
-        res.status(501).json({message:"Cannot find posts. Please try again"});
+        console.log(error);
+        res.status(404).json({message:"Cannot find posts. Please try again"});
     }
+});
+
+app.get("chartData/grab", async (req, res) => {
+
 });
 app.listen(5002);

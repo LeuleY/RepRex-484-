@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const postSchema = new mongoose.Schema({
     poster_id:String,
     content:String,
-    likes:[Number],
+    likes:[],
     posted_date:String
 });
 
