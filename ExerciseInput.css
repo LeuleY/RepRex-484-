@@ -42,7 +42,7 @@
 }
 
 .tab-button.active {
-    background-color: #b54a3d;  /* Changed to match your app's color scheme */
+    background-color: #b54a3d;
     color: white;
 }
 
@@ -83,7 +83,7 @@
 
 .submit-button {
     padding: 1rem;
-    background-color: #b54a3d;  /* Changed to match your app's color scheme */
+    background-color: #b54a3d;
     color: white;
     border: none;
     border-radius: 4px;
