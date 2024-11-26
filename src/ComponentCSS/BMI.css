@@ -1,0 +1,89 @@
+/* General Reset */
+
+  
+  /* Body Styling */
+
+  /* Container Styling */
+  .container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 40px;
+    gap: 20px;
+  }
+  
+  /* Form Styling */
+  form {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1;
+  }
+  
+  form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  form input[type="number"],
+  form input[type="radio"] {
+    margin-bottom: 15px;
+    display: block;
+  }
+  
+  .radioContainer{
+    display: flex;
+    justify-items: center;
+  
+    gap: 10px; 
+  }
+  .radioContainer input[type="radio"]{
+   text-align: center;
+
+  }
+
+  form button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  form button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Info Section Styling */
+  .infoSection {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1;
+  }
+  
+  .infoSection p {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  /* Flexbox Layout for Larger Screens */
+  @media (min-width: 768px) {
+    .container {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  
+    form,
+    .infoSection {
+      max-width: 48%;
+    }
+  }
+  

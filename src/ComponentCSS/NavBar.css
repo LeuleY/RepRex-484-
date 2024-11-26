@@ -45,6 +45,21 @@ header nav img {
     border-radius: 50%;
 }
 
+#mainLogo {
+
+    width: 250px;
+    /* Adjust the width */
+    height: auto;
+    /* Maintain aspect ratio */
+    display: block;
+    /* Centers the image when margin is auto */
+    margin: 0 auto;
+    /* Center horizontally */
+    background-color: transparent;
+    /* Ensure no background color */
+
+}
+
 /* Hamburger menu */
 .hamburger {
     display: none;
@@ -78,23 +93,36 @@ header nav img {
     display: flex;
 }
 
+.logout-button,
+.username-display {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    background-color: #b54a3d;
+}
+
 /* Responsive breakpoints */
 @media (max-width: 768px) {
     header nav {
-        display: none; /* Hide the regular nav bar on small screens */
+        display: none;
+        /* Hide the regular nav bar on small screens */
     }
 
     .hamburger {
-        display: flex; /* Show the hamburger icon */
+        display: flex;
+        /* Show the hamburger icon */
     }
 }
 
 @media (min-width: 769px) {
     .nav-menu {
-        display: none; /* Ensure dropdown is hidden on large screens */
+        display: none;
+        /* Ensure dropdown is hidden on large screens */
     }
 
     header nav {
-        display: flex; /* Show the regular nav bar on large screens */
+        display: flex;
+        /* Show the regular nav bar on large screens */
     }
 }
