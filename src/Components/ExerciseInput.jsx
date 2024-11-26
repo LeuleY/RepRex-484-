@@ -12,7 +12,6 @@ const ExerciseInput = () => {
     const [time, setTime] = useState('');
     const [incline, setIncline] = useState('');
     const [message, setMessage] = useState('');
-    const [userId, setUid] = useState('');
 
     const weightliftingExercises = [
         'Bench Press',
@@ -37,6 +36,7 @@ const ExerciseInput = () => {
 
     const HandleWeightliftingSubmit = async (e) => {
         e.preventDefault();
+        var uid = '';
         const token = localStorage.getItem('token');
         try {
             const response = await axios.get('http://localhost:5001/api/users/profile', {
@@ -45,8 +45,8 @@ const ExerciseInput = () => {
                 },
             });
             const user = response.data;
-            setUid(user._id);
-            } catch (error) {
+            uid = user._id;
+        } catch (error) {
             console.error('Error fetching user data:', error);
         }
         try {
@@ -55,9 +55,8 @@ const ExerciseInput = () => {
                 weight: weight,
                 reps: reps,
                 dateTime: Date.now(),
-                userId: userId
+                userId: uid
             });
-
             setMessage(response.data.message);
         } catch (error) {
             // Handle errors
@@ -75,6 +74,7 @@ const ExerciseInput = () => {
     };
     const HandleCardioSubmit = async (e) => {
         e.preventDefault();
+        var uid = '';
         const token = localStorage.getItem('token');
         try {
             const response = await axios.get('http://localhost:5001/api/users/profile', {
@@ -82,8 +82,8 @@ const ExerciseInput = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            const user = response.data;
-            setUid(user._id);
+            const user = await response.data;
+            uid = user._id;
         } catch (error) {
             console.error('Error fetching user data:', error);
         }
@@ -94,7 +94,7 @@ const ExerciseInput = () => {
                 duration: time,
                 incline: incline,
                 dateTime: Date.now(),
-                userId: userId
+                userId: uid
             });
             setMessage(response.data.message);
         } catch (error) {
