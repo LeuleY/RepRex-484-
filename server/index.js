@@ -2,16 +2,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const cors = require('cors'); // NEW CODE: Import CORS middleware
+const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
 const workoutRoutes = require('./routes/workoutRoutes');
 
 dotenv.config({ path: './config.env' });
 
 const MONGODB_URI = process.env.ATLAS_URI;
-
-console.log('Environment Variable ATLAS_URI:', process.env.ATLAS_URI);
-
 
 mongoose.connect(MONGODB_URI)
   .then(() => {
@@ -22,21 +19,12 @@ mongoose.connect(MONGODB_URI)
   });
 
 const app = express();
-app.use(cors()); // NEW CODE: Enable CORS for all routes
+app.use(cors());
 app.use(express.json());
 
-
-
-// Use the user routes
+// Define the routes here
 app.use('/api/users', userRoutes);
 app.use('/api/workouts', workoutRoutes);
 
-
+// Export the app for serverless function
 module.exports = app;
-
-
-
-
-
-
-
