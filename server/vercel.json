@@ -14,11 +14,8 @@
       {
         "src": "/api/workouts/(.*)",
         "dest": "/server/routes/workoutRoutes.js"
-      },
-      {
-        "src": "/api/DBTest2",
-        "dest": "/server/DBTest2.js"
       }
+     
     ]
   }
   
