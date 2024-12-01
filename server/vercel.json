@@ -8,11 +8,11 @@
   ],
   "routes": [
     {
-      "src": "/api/users/(.*)",
+      "src": "/users/(.*)",
       "dest": "/server/routes/userRoutes.js"
     },
     {
-      "src": "/api/workouts/(.*)",
+      "src": "/workouts/(.*)",
       "dest": "/server/routes/workoutRoutes.js"
     }
   ]
