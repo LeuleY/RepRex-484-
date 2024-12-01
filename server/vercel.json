@@ -9,11 +9,15 @@
   "routes": [
     {
       "src": "/api/users/(.*)",
-      "dest": "server/routes/userRoutes.js"
+      "dest": "/server/routes/userRoutes.js"
     },
     {
       "src": "/api/workouts/(.*)",
-      "dest": "server/routes/workoutRoutes.js"
+      "dest": "/server/routes/workoutRoutes.js"
+    },
+    {
+      "src": "/api/DBTest2",
+      "dest": "/server/index.js"
     }
   ]
 }
