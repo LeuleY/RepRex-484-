@@ -7,6 +7,23 @@
 }
 
 
+{
+  "version": 2,
+
+  "routes": [
+    {
+      "src": "/api/users/(.*)",
+      "dest": "/server/routes/userRoutes.js"
+    },
+    {
+      "src": "/api/workouts/(.*)",
+      "dest": "/server/routes/workoutRoutes.js"
+    }
+  ]
+}
+
+
+
 
 
 
