@@ -1,21 +1,19 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "server/**/*.js",
-        "use": "@vercel/node"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/api/users/(.*)",
-        "dest": "/server/routes/userRoutes.js"
-      },
-      {
-        "src": "/api/workouts/(.*)",
-        "dest": "/server/routes/workoutRoutes.js"
-      }
-     
-    ]
-  }
-  
+  "version": 2,
+  "builds": [
+    {
+      "src": "server/**/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/users/(.*)",
+      "dest": "server/routes/userRoutes.js"
+    },
+    {
+      "src": "/api/workouts/(.*)",
+      "dest": "server/routes/workoutRoutes.js"
+    }
+  ]
+}
