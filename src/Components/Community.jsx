@@ -4,9 +4,10 @@ import '../ComponentCSS/Community.css';
 import NavBar from './NavBar';
 import axios from 'axios';
 
+const token = localStorage.getItem('token');
 async function returnUserName(){
     try{
-        const token = localStorage.getItem('token');
+
         const response = await axios.get("http://localhost:5001/api/users/profile", {
             headers:{
                 Authorization: `Bearer ${token}`,
@@ -20,7 +21,8 @@ async function returnUserName(){
     }
 }
 
-const COUNT = 4;
+var COUNT = 4;
+const START_COUNT = 4;
 function Community(){
 
     //Current community page is temporary, base structure should remain relativly similar but added functionality would need implemented with Mongo later
@@ -30,10 +32,14 @@ function Community(){
     const [postList, setList] = useState([]);
     useEffect(() => {
         async function fetchData(){
+            if(COUNT <= 0)
+                COUNT = START_COUNT;
+            var actualNum = await axios.get("http://localhost:5001/api/posts/number").then(res => {return res.data.count}).catch(error => console.log(error));
+            COUNT = (COUNT > actualNum) ? actualNum : COUNT;
+
             if(JSON.parse(JSON.stringify(posts)).length < COUNT){
-                setList(await axios.get("http://localhost:5002/posts/grab?count="+COUNT).then(res => {return res.data}).catch(error => console.log(error)));
+                setList(await axios.get("http://localhost:5001/api/posts/grab?count="+COUNT).then(res => {return res.data}).catch(error => console.log(error)));
                 var list = JSON.parse(JSON.stringify(postList));
-                console.log(list.length);
                 for(let i = 0; i < list.length && i < COUNT && JSON.parse(JSON.stringify(posts.length)) < COUNT; i++){
                     const post = {
                         id: list[i]._id,
@@ -56,10 +62,9 @@ function Community(){
             }
         }
         fetchData();
-
+        console.log(COUNT);
 
     },[posts, postList]);
-
 
     const handleSubmit = async (e) => {
         var list = JSON.parse(JSON.stringify(posts));
@@ -74,8 +79,24 @@ function Community(){
                 timestamp: new Date().toLocaleString(),
                 author: await returnUserName()
             };
-            if(list.length < COUNT)
+
+            setNewPost('');
+            setImageUrl('');
+            post.id = await axios.post("http://localhost:5001/api/posts/create", {
+                text:post.content,
+                creator:post.author,
+                time:post.timestamp
+                },
+                {
+                headers:{
+                    Authorization: `Bearer ${token}`,
+                }
+            }).then(res => res.data.id).catch(error => {console.log(error)});
+            if(COUNT < START_COUNT)
+                COUNT++;
+            if(list.length < COUNT){
                 setPosts([post, ...posts]);
+            }
             else{
                 for(let i = 1; i < list.length; i++){
                     list[i-1] = list[i];
@@ -83,32 +104,37 @@ function Community(){
                 list[list.length-1] = post;
                 setPosts(list);
             }
-            setNewPost('');
-            setImageUrl('');
-            await axios.post("http://localhost:5002/posts/create", {
-                text:post.content,
-                creator:post.author,
-                time:post.timestamp
-            }).then(res => res.data).catch(error => {console.log(error)});
             
         }
     };
 
-    const handleDelete = (postId) => {
-        setPosts(posts.filter(post => post.id !== postId));
+    const handleDelete = async (postId) => {
+        var currentUser = await returnUserName();
+        setPosts(posts.filter(post => (post.id !== postId || post.author !== currentUser)))
+        await axios.post("http://localhost:5001/api/posts/delete", {id:postId, userName:currentUser},{
+            headers:{
+                Authorization: `Bearer ${token}`,
+            }
+        }).then(res => res.data).catch(error => {console.log("ERROR: "+error)});        COUNT--;
+        COUNT--;
+        console.log(COUNT);
     };
 
-    // const handleLike = async(postId) => {
-    //      setPosts(await Promise.all(posts.map(async post =>
-    //         (post.id === postId ? {...posts, likes: await axios.post("http://localhost:5002/posts/like",{id:postId, userName: await returnUserName()}).then(res => {return res.data.likeCount}).catch(error => {console.log("ERROR: "+error)})} : post)
-    //     )));
-    //     console.log(posts)
-    // };
-    const handleLike = (postId) => {
-        setPosts(posts.map(post =>
-            post.id === postId ? {...post, likes: post.likes + 1} : post
-        ));
-    };
+    const handleLike = async (postId) => {
+         setPosts(await Promise.all(posts.map(async (post) =>{
+            if (post.id === postId){
+                var likeCount = await axios.post("http://localhost:5001/api/posts/like",{id:postId, userName: await returnUserName()},{
+                    headers:{
+                        Authorization: `Bearer ${token}`,
+                    }
+                }).then(res => res.data.likeCount).catch(error => {console.log("ERROR: "+error)});
+                return {...post, likes:likeCount};
+            }
+            else 
+                return post;
+         })));
+    }
+
     //The actual should remain relativly similar, just need to modify some of the authentication.
     //Ex. Only show delete function if the user posted it, only allow likes once per user, etc
     return (
@@ -126,13 +152,6 @@ function Community(){
                             onChange={(e) => setNewPost(e.target.value)}
                             placeholder="Share your fitness journey..."
                             className="post-input"
-                        />
-                        <input
-                            type="text"
-                            value={imageUrl}
-                            onChange={(e) => setImageUrl(e.target.value)}
-                            placeholder="Image URL (optional)"
-                            className="image-input"
                         />
                         <button type="submit" className="post-button">Share</button>
                     </form>
@@ -152,13 +171,13 @@ function Community(){
                             )}
                             <div className="post-actions">
                                 <button
-                                    onClick={() => {handleLike(post.id)}}
+                                    onClick={async() => {await handleLike(post.id)}}
                                     className="like-button"
                                 >
                                     ❤️ {post.likes}
                                 </button>
                                 <button
-                                    onClick={() => handleDelete(post.id)}
+                                    onClick={async() => {await handleDelete(post.id)}}
                                     className="delete-button"
                                 >
                                     🗑️ Delete
