@@ -1,24 +1,9 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "server/**/*.js",
-        "use": "@vercel/node"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/api/users/(.*)",
-        "dest": "/server/routes/userRoutes.js"
-      },
-      {
-        "src": "/api/workouts/(.*)",
-        "dest": "/server/routes/workoutRoutes.js"
-      },
-      {
-        "src": "/api/DBTest2",
-        "dest": "/server/DBTest2.js"
-      }
-    ]
-  }
-  
+  "version": 2,
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/server/index.js"
+    }
+  ]
+}

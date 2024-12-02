@@ -1,7 +1,8 @@
 // Profile.js
-import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../ComponentCSS/Profile.css';
 import NavBar from './NavBar';
 
 const Profile = () => {
@@ -41,11 +42,19 @@ const Profile = () => {
   return (
     <div>
       <NavBar username={userData.username} handleLogout={handleLogout} />
-      <h2>User Profile</h2>
-      <p>Username: {userData.username}</p>
-      <p>Email: {userData.email}</p>
+      <div className="profile-container">
+        <div className="profile-header">
+          <h2>User Profile</h2>
+        </div>
+        <div className="profile-info">
+          <p><strong>Username:</strong> {userData.username}</p>
+          <p><strong>Email:</strong> {userData.email}</p>
+        </div>
+        <div className="profile-actions">
+          <button onClick={handleLogout}>Logout</button>
+        </div>
+      </div>
     </div>
-  );
-};
+  )}
 
 export default Profile;

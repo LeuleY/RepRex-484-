@@ -1,3 +1,35 @@
+{
+  "version": 2,
+
+  "routes": [
+    { "src": "/(.*)", "dest": "/" }
+  ]
+}
+
+
+{
+  "version": 2,
+
+  "routes": [
+    {
+      "src": "/api/users/(.*)",
+      "dest": "/server/routes/userRoutes.js"
+    },
+    {
+      "src": "/api/workouts/(.*)",
+      "dest": "/server/routes/workoutRoutes.js"
+    }
+  ]
+}
+
+
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

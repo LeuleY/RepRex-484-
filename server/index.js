@@ -26,20 +26,6 @@ app.use(cors()); // NEW CODE: Enable CORS for all routes
 app.use(express.json());
 
 
-//tester
-app.get('/api/DBTest2', async (req, res) => {
-  try {
-    const db = mongoose.connection;
-    if (db.readyState === 1) {
-      res.status(200).json({ message: '✅ Connected to MongoDB Atlas' });
-    } else {
-      res.status(500).json({ message: '❌ Not connected to MongoDB Atlas' });
-    }
-  } catch (error) {
-    res.status(500).json({ message: 'Error checking connection', error: error.message });
-  }
-});
-
 
 // Use the user routes
 app.use('/api/users', userRoutes);
@@ -47,3 +33,12 @@ app.use('/api/workouts', workoutRoutes);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
+
+module.exports = app;
+
+
+
+
+
+
+
