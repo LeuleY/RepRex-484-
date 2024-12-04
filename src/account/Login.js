@@ -1,4 +1,3 @@
-// Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Login.css';
@@ -20,15 +19,19 @@ const Login = () => {
         password,
       });
 
-      // NEW CODE: Save the JWT token in localStorage
+      // Save the JWT token and userId in localStorage
       localStorage.setItem('token', response.data.token);
-      console.log('Token saved:', localStorage.getItem('token')); // NEW CODE: Debug log
+      localStorage.setItem('userId', response.data.userId); // Save userId
+      console.log('Token and User ID saved:', {
+        token: localStorage.getItem('token'),
+        userId: localStorage.getItem('userId'),
+      }); // Debug log
 
-      // NEW CODE: Redirect to the homepage if token is present
+      // Redirect to the homepage if token is present
       if (localStorage.getItem('token')) {
         navigate('/homepage');
       } else {
-        console.error('Token not found, unable to navigate.'); // NEW CODE: Error log
+        console.error('Token not found, unable to navigate.'); // Error log
         setMessage('Login failed: Unable to navigate');
       }
     } catch (error) {
@@ -61,7 +64,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
             <button type="submit" id='bttn'>Login</button>
-            {message && <p style={{ color: 'red', fontSize: '14px' }} >{message}</p>}
+            {message && <p style={{ color: 'red', fontSize: '14px' }}>{message}</p>}
             <p>Don't have an account? <a href='/register'>Register Here</a></p>
           </form>
         </div>
