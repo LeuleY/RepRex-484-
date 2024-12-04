@@ -13,6 +13,7 @@ import DetailsPage from './Components/DetailsPage';
 import Calculator from './Components/Calculator'; 
 import BMICalc from './Components/BMICalc'; 
 import SearchBar from './Components/SearchBar';
+import RexLog from './Components/RexLog';
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('token');
@@ -27,7 +28,7 @@ function App() {
       <Route path="/homepage" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
       <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
-      <Route path="/rexlog" element={<ProtectedRoute><About /></ProtectedRoute>} />
+      <Route path="/rexlog" element={<ProtectedRoute><RexLog /></ProtectedRoute>} />
       <Route path="/community" element={<ProtectedRoute><Community /></ProtectedRoute>} />
       <Route path="/workoutInput" element={<ProtectedRoute><ExerciseInput /></ProtectedRoute>} />
       <Route path="/cards/:muscle" element={<ProtectedRoute><CardList/></ProtectedRoute>} />
