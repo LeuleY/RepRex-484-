@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import '../ComponentCSS/Community.css';
 import NavBar from './NavBar';
-import axios from 'axios';
 
 const token = localStorage.getItem('token');
 async function returnUserName(){
@@ -148,10 +147,10 @@ function Community(){
                 <div className="post-form-container">
                     <form onSubmit={handleSubmit} className="post-form">
                         <textarea
+                            id="text"
                             value={newPost}
                             onChange={(e) => setNewPost(e.target.value)}
                             placeholder="Share your fitness journey..."
-                            className="post-input"
                         />
                         <button type="submit" className="post-button">Share</button>
                     </form>
