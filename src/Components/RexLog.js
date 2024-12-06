@@ -365,7 +365,6 @@ var cyclingPlot = [];
           )}
         </tbody>
       </table>
-      {console.log(selectedExercise.type === exerciseOptions[0].type)}
       <br/>
       {selectedExercise.type === exerciseOptions[0].type && hasWorkoutType[0][1] && <Plot data={[bicepCurlPlot[0]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Bicep Curls Weight", xaxis:{text:"Time"}, yaxis:{title:"Weight"}}}/>}
       {selectedExercise.type === exerciseOptions[0].type && hasWorkoutType[0][2] && <Plot data={[bicepCurlPlot[1]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Bicep Curls Reps", xaxis:{text:"Time"}, yaxis:{title:"Reps"}}}/>}
