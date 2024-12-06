@@ -31,7 +31,7 @@ var hasWorkoutType = [[false, false, false], [false, false, false], [false, fals
 //First outer index is the weight, second is the reps
 var bicepCurlVals = [[],[]];
 var squatsVals = [[],[]];
-
+var workoutType = "";
 //First outer index is the distance, second is the speed, third is the intensity
 var runningVals = [[],[],[]];
 var cyclingVals = [[],[],[]];
@@ -365,19 +365,21 @@ var cyclingPlot = [];
           )}
         </tbody>
       </table>
-      {hasWorkoutType[0][1] && <Plot data={[bicepCurlPlot[0]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Bicep Curls Weight", xaxis:{text:"Time"}, yaxis:{title:"Weight"}}}/>}
-      {hasWorkoutType[0][2] && <Plot data={[bicepCurlPlot[1]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Bicep Curls Reps", xaxis:{text:"Time"}, yaxis:{title:"Reps"}}}/>}
+      {console.log(selectedExercise.type === exerciseOptions[0].type)}
       <br/>
-      {hasWorkoutType[2][1] && <Plot data={[runningPlot[0]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Running Distance", xaxis:{text:"Time"}, yaxis:{title:"Distance"}}}/>}
-      {hasWorkoutType[2][2] && <Plot data={[runningPlot[1]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Running Speed", xaxis:{text:"Time"}, yaxis:{title:"Speed"}}}/>}
-      {hasWorkoutType[2][3] && <Plot data={[runningPlot[2]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Running Intensity", xaxis:{text:"Time"}, yaxis:{title:"Intensity"}}}/>}
+      {selectedExercise.type === exerciseOptions[0].type && hasWorkoutType[0][1] && <Plot data={[bicepCurlPlot[0]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Bicep Curls Weight", xaxis:{text:"Time"}, yaxis:{title:"Weight"}}}/>}
+      {selectedExercise.type === exerciseOptions[0].type && hasWorkoutType[0][2] && <Plot data={[bicepCurlPlot[1]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Bicep Curls Reps", xaxis:{text:"Time"}, yaxis:{title:"Reps"}}}/>}
       <br/>
-      {hasWorkoutType[1][1] && <Plot data={[squatsPlot[0]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Squats Weight", xaxis:{text:"Time"}, yaxis:{title:"Weight"}}}/>}
-      {hasWorkoutType[1][2] && <Plot data={[squatsPlot[1]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Squats Reps", xaxis:{text:"Time"}, yaxis:{title:"Reps"}}}/>}
+      {selectedExercise.type === exerciseOptions[1].type && hasWorkoutType[2][1] && <Plot data={[runningPlot[0]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Running Distance", xaxis:{text:"Time"}, yaxis:{title:"Distance"}}}/>}
+      {selectedExercise.type === exerciseOptions[1].type && hasWorkoutType[2][2] && <Plot data={[runningPlot[1]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Running Speed", xaxis:{text:"Time"}, yaxis:{title:"Speed"}}}/>}
+      {selectedExercise.type === exerciseOptions[1].type && hasWorkoutType[2][3] && <Plot data={[runningPlot[2]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Running Intensity", xaxis:{text:"Time"}, yaxis:{title:"Intensity"}}}/>}
       <br/>
-      {hasWorkoutType[3][1] && <Plot data={[cyclingPlot[0]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Cycling Distance", xaxis:{text:"Time"}, yaxis:{title:"Distance"}}}/>}
-      {hasWorkoutType[3][2] && <Plot data={[cyclingPlot[1]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Cycling Speed", xaxis:{text:"Time"}, yaxis:{title:"Speed"}}}/>}
-      {hasWorkoutType[3][3] && <Plot data={[cyclingPlot[2]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Cycling Intensity", xaxis:{text:"Time"}, yaxis:{title:"Intensity"}}}/>}
+      {selectedExercise.type === exerciseOptions[2].type && hasWorkoutType[1][1] && <Plot data={[squatsPlot[0]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Squats Weight", xaxis:{text:"Time"}, yaxis:{title:"Weight"}}}/>}
+      {selectedExercise.type === exerciseOptions[2].type && hasWorkoutType[1][2] && <Plot data={[squatsPlot[1]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Squats Reps", xaxis:{text:"Time"}, yaxis:{title:"Reps"}}}/>}
+      <br/>
+      {selectedExercise.type === exerciseOptions[3].type && hasWorkoutType[3][1] && <Plot data={[cyclingPlot[0]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Cycling Distance", xaxis:{text:"Time"}, yaxis:{title:"Distance"}}}/>}
+      {selectedExercise.type === exerciseOptions[3].type && hasWorkoutType[3][2] && <Plot data={[cyclingPlot[1]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Cycling Speed", xaxis:{text:"Time"}, yaxis:{title:"Speed"}}}/>}
+      {selectedExercise.type === exerciseOptions[3].type && hasWorkoutType[3][3] && <Plot data={[cyclingPlot[2]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Cycling Intensity", xaxis:{text:"Time"}, yaxis:{title:"Intensity"}}}/>}
     </div>
   );
 };
