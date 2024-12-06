@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import NavBar from './NavBar';
 import axios from 'axios';
 import Plot from "react-plotly.js";
+import '../ComponentCSS/Rexlog.css'
 
 // Exercise options and their fields
 const exerciseOptions = [
@@ -283,104 +284,272 @@ var cyclingPlot = [];
   }
   setPlots();
   return (
-    <div>
-      <NavBar />
-      <h2>RepRex Log</h2>
-      <p>Add your workout details below:</p>
 
-      {/* Workout Form */}
+    
       <div>
-        <label>Exercise Type:</label>
-        <select
-          value={selectedExercise.type}
-          onChange={(e) => {
-            const selected = exerciseOptions.find(
-              (option) => option.type === e.target.value
-            );
-            setSelectedExercise(selected);
-            setFormData({}); // Reset form data on type change
-          }}
-        >
-          {exerciseOptions.map((option) => (
-            <option key={option.type} value={option.type}>
-              {option.type}
-            </option>
-          ))}
-        </select>
-
-        {selectedExercise.fields.map((field) => (
-          <div key={field}>
-            <label>
-              {field.charAt(0).toUpperCase() + field.slice(1)}:
-            </label>
-            <input
-              type="number"
-              value={formData[field] || ''}
-              onChange={(e) => handleInputChange(field, e.target.value)}
-              placeholder={`Enter ${field}`}
-            />
-          </div>
+        <NavBar></NavBar>
+      
+      <div className='"rexlog-container"' > 
+        <h2>RepRex Log</h2>
+        <p>Add your workout details below:</p>
+    
+        <div className="workout-form">
+  <div className="input-row">
+    <div className="form-group">
+      <label>Exercise Type:</label>
+      <select
+        value={selectedExercise.type}
+        onChange={(e) => {
+          const selected = exerciseOptions.find(
+            (option) => option.type === e.target.value
+          );
+          setSelectedExercise(selected);
+          setFormData({});
+        }}
+      >
+        {exerciseOptions.map((option) => (
+          <option key={option.type} value={option.type}>
+            {option.type}
+          </option>
         ))}
-
-        <button onClick={handleAddWorkout}>Add Workout</button>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-      </div>
-
-      {/* Loading Indicator */}
-      {loading && <p>Loading workouts...</p>}
-
-      {/* Workout Log */}
-      <h3>Your Workouts</h3>
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-        <thead>
-          <tr>
-            <th>Exercise</th>
-            <th>Date</th>
-            <th>Weight (lbs)</th>
-            <th>Reps</th>
-            <th>Distance (miles)</th>
-            <th>Speed (mph)</th>
-            <th>Intensity</th>
-          </tr>
-        </thead>
-        <tbody>
-          {workouts.length > 0 ? (
-            workouts.map((workout, index) => (
-              <tr key={index}>
-                <td>{workout.exercise}</td>
-                <td>{workout.date}</td>
-                <td>{workout.weight}</td>
-                <td>{workout.reps}</td>
-                <td>{workout.distance}</td>
-                <td>{workout.speed}</td>
-                <td>{workout.intensity}</td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="7" style={{ textAlign: 'center' }}>
-                No workouts recorded yet.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-      <br/>
-      {selectedExercise.type === exerciseOptions[0].type && hasWorkoutType[0][1] && <Plot data={[bicepCurlPlot[0]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Bicep Curls Weight", xaxis:{text:"Time"}, yaxis:{title:"Weight"}}}/>}
-      {selectedExercise.type === exerciseOptions[0].type && hasWorkoutType[0][2] && <Plot data={[bicepCurlPlot[1]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Bicep Curls Reps", xaxis:{text:"Time"}, yaxis:{title:"Reps"}}}/>}
-      <br/>
-      {selectedExercise.type === exerciseOptions[1].type && hasWorkoutType[2][1] && <Plot data={[runningPlot[0]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Running Distance", xaxis:{text:"Time"}, yaxis:{title:"Distance"}}}/>}
-      {selectedExercise.type === exerciseOptions[1].type && hasWorkoutType[2][2] && <Plot data={[runningPlot[1]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Running Speed", xaxis:{text:"Time"}, yaxis:{title:"Speed"}}}/>}
-      {selectedExercise.type === exerciseOptions[1].type && hasWorkoutType[2][3] && <Plot data={[runningPlot[2]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Running Intensity", xaxis:{text:"Time"}, yaxis:{title:"Intensity"}}}/>}
-      <br/>
-      {selectedExercise.type === exerciseOptions[2].type && hasWorkoutType[1][1] && <Plot data={[squatsPlot[0]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Squats Weight", xaxis:{text:"Time"}, yaxis:{title:"Weight"}}}/>}
-      {selectedExercise.type === exerciseOptions[2].type && hasWorkoutType[1][2] && <Plot data={[squatsPlot[1]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Squats Reps", xaxis:{text:"Time"}, yaxis:{title:"Reps"}}}/>}
-      <br/>
-      {selectedExercise.type === exerciseOptions[3].type && hasWorkoutType[3][1] && <Plot data={[cyclingPlot[0]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Cycling Distance", xaxis:{text:"Time"}, yaxis:{title:"Distance"}}}/>}
-      {selectedExercise.type === exerciseOptions[3].type && hasWorkoutType[3][2] && <Plot data={[cyclingPlot[1]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Cycling Speed", xaxis:{text:"Time"}, yaxis:{title:"Speed"}}}/>}
-      {selectedExercise.type === exerciseOptions[3].type && hasWorkoutType[3][3] && <Plot data={[cyclingPlot[2]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Cycling Intensity", xaxis:{text:"Time"}, yaxis:{title:"Intensity"}}}/>}
+      </select>
     </div>
-  );
+
+    {selectedExercise.fields.map((field) => (
+      <div className="form-group" key={field}>
+        <label>
+          {field.charAt(0).toUpperCase() + field.slice(1)}:
+        </label>
+        <input
+          type="number"
+          value={formData[field] || ''}
+          onChange={(e) => handleInputChange(field, e.target.value)}
+          placeholder={`Enter ${field}`}
+        />
+      </div>
+    ))}
+  </div>
+
+  <div className="button-container">
+    <button onClick={handleAddWorkout}>Add Workout</button>
+    {error && <p className="error-message">{error}</p>}
+  </div>
+</div>
+    
+        {loading && <p className="loading">Loading workouts...</p>}
+    
+        <h3>Your Workouts</h3>
+        <div className="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Exercise</th>
+                <th>Date</th>
+                <th>Weight (lbs)</th>
+                <th>Reps</th>
+                <th>Distance (miles)</th>
+                <th>Speed (mph)</th>
+                <th>Intensity</th>
+              </tr>
+            </thead>
+            <tbody>
+              {workouts.length > 0 ? (
+                workouts.map((workout, index) => (
+                  <tr key={index}>
+                    <td>{workout.exercise}</td>
+                    <td>{workout.date}</td>
+                    <td>{workout.weight}</td>
+                    <td>{workout.reps}</td>
+                    <td>{workout.distance}</td>
+                    <td>{workout.speed}</td>
+                    <td>{workout.intensity}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="7" style={{ textAlign: 'center' }}>
+                    No workouts recorded yet.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+    
+        <div className="plots-container">
+          {selectedExercise.type === exerciseOptions[0].type && (
+            <>
+              {hasWorkoutType[0][1] && (
+                <div className="plot-container">
+                  <Plot
+                    data={[bicepCurlPlot[0]]}
+                    config={settings}
+                    layout={{
+                      width: sizing[0],
+                      height: sizing[1],
+                      title: "Bicep Curls Weight",
+                      xaxis: { text: "Time" },
+                      yaxis: { title: "Weight" }
+                    }}
+                  />
+                </div>
+              )}
+              {hasWorkoutType[0][2] && (
+                <div className="plot-container">
+                  <Plot
+                    data={[bicepCurlPlot[1]]}
+                    config={settings}
+                    layout={{
+                      width: sizing[0],
+                      height: sizing[1],
+                      title: "Bicep Curls Reps",
+                      xaxis: { text: "Time" },
+                      yaxis: { title: "Reps" }
+                    }}
+                  />
+                </div>
+              )}
+            </>
+          )}
+    
+          {selectedExercise.type === exerciseOptions[1].type && (
+            <>
+              {hasWorkoutType[2][1] && (
+                <div className="plot-container">
+                  <Plot
+                    data={[runningPlot[0]]}
+                    config={settings}
+                    layout={{
+                      width: sizing[0],
+                      height: sizing[1],
+                      title: "Running Distance",
+                      xaxis: { text: "Time" },
+                      yaxis: { title: "Distance" }
+                    }}
+                  />
+                </div>
+              )}
+              {hasWorkoutType[2][2] && (
+                <div className="plot-container">
+                  <Plot
+                    data={[runningPlot[1]]}
+                    config={settings}
+                    layout={{
+                      width: sizing[0],
+                      height: sizing[1],
+                      title: "Running Speed",
+                      xaxis: { text: "Time" },
+                      yaxis: { title: "Speed" }
+                    }}
+                  />
+                </div>
+              )}
+              {hasWorkoutType[2][3] && (
+                <div className="plot-container">
+                  <Plot
+                    data={[runningPlot[2]]}
+                    config={settings}
+                    layout={{
+                      width: sizing[0],
+                      height: sizing[1],
+                      title: "Running Intensity",
+                      xaxis: { text: "Time" },
+                      yaxis: { title: "Intensity" }
+                    }}
+                  />
+                </div>
+              )}
+            </>
+          )}
+    
+          {selectedExercise.type === exerciseOptions[2].type && (
+            <>
+              {hasWorkoutType[1][1] && (
+                <div className="plot-container">
+                  <Plot
+                    data={[squatsPlot[0]]}
+                    config={settings}
+                    layout={{
+                      width: sizing[0],
+                      height: sizing[1],
+                      title: "Squats Weight",
+                      xaxis: { text: "Time" },
+                      yaxis: { title: "Weight" }
+                    }}
+                  />
+                </div>
+              )}
+              {hasWorkoutType[1][2] && (
+                <div className="plot-container">
+                  <Plot
+                    data={[squatsPlot[1]]}
+                    config={settings}
+                    layout={{
+                      width: sizing[0],
+                      height: sizing[1],
+                      title: "Squats Reps",
+                      xaxis: { text: "Time" },
+                      yaxis: { title: "Reps" }
+                    }}
+                  />
+                </div>
+              )}
+            </>
+          )}
+    
+          {selectedExercise.type === exerciseOptions[3].type && (
+            <>
+              {hasWorkoutType[3][1] && (
+                <div className="plot-container">
+                  <Plot
+                    data={[cyclingPlot[0]]}
+                    config={settings}
+                    layout={{
+                      width: sizing[0],
+                      height: sizing[1],
+                      title: "Cycling Distance",
+                      xaxis: { text: "Time" },
+                      yaxis: { title: "Distance" }
+                    }}
+                  />
+                </div>
+              )}
+              {hasWorkoutType[3][2] && (
+                <div className="plot-container">
+                  <Plot
+                    data={[cyclingPlot[1]]}
+                    config={settings}
+                    layout={{
+                      width: sizing[0],
+                      height: sizing[1],
+                      title: "Cycling Speed",
+                      xaxis: { text: "Time" },
+                      yaxis: { title: "Speed" }
+                    }}
+                  />
+                </div>
+              )}
+              {hasWorkoutType[3][3] && (
+                <div className="plot-container">
+                  <Plot
+                    data={[cyclingPlot[2]]}
+                    config={settings}
+                    layout={{
+                      width: sizing[0],
+                      height: sizing[1],
+                      title: "Cycling Intensity",
+                      xaxis: { text: "Time" },
+                      yaxis: { title: "Intensity" }
+                    }}
+                  />
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+      </div>
+    );
 };
 
 export default RexLog;
