@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import '../ComponentCSS/Calculator.css';
+import Footer from './Footer';
+import NavBar from './NavBar';
  import './HomePage';
 
 function Calculator() {
@@ -19,7 +21,7 @@ function Calculator() {
     return (
         <div>
            
-            
+           <NavBar></NavBar>
 
             {/* Calculator Section */}
             <main className="calculator-container">
@@ -93,31 +95,7 @@ function Calculator() {
 
             {/* Footer Section */}
             <footer>
-                <div className="footer-content">
-                    <div className="quick-links">
-                        <h3>Quick Links</h3>
-                        <ul>
-                            <li><Link to="#">Exercise Lab</Link></li>
-                            <li><Link to="#">Cardio</Link></li>
-                            <li><Link to="#">Weight Loss</Link></li>
-                        </ul>
-                    </div>
-                    <div className="quick-links">
-                        <h3>Quick Links</h3>
-                        <ul>
-                            <li><Link to="#">Exercise Lab</Link></li>
-                            <li><Link to="#">Cardio</Link></li>
-                            <li><Link to="#">Weight Loss</Link></li>
-                        </ul>
-                    </div>
-                    <div className="subscribe">
-                        <h3>Rep Letter</h3>
-                        <form>
-                            <input type="email" placeholder="E-mail" required />
-                            <button type="submit">Sign Up</button>
-                        </form>
-                    </div>
-                </div>
+                <Footer></Footer>
             </footer>
         </div>
     );
