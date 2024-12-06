@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors'); // Import CORS middleware
 const userRoutes = require('./routes/userRoutes');
+const postRoutes = require('./routes/postRoutes');
 const workoutRoutes = require('./routes/workoutRoutes');
 
-dotenv.config({ path: './config.env' });
+dotenv.config({ path: 'server/config.env' });
 
 const MONGODB_URI = process.env.ATLAS_URI;
 
@@ -33,25 +34,10 @@ const app = express();
 app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
 
-// Test MongoDB connection
-app.get('/api/DBTest2', async (req, res) => {
-  try {
-    const db = mongoose.connection;
-    res.status(200).json({
-      status: db.readyState === 1 ? 'Connected' : 'Not Connected',
-      readyState: db.readyState,
-      host: db.host,
-      port: db.port,
-      database: db.name,
-    });
-  } catch (error) {
-    res.status(500).json({ message: 'Error checking connection', error: error.message });
-  }
-});
-
 // Use the user routes
 app.use('/api/users', userRoutes);
 app.use('/api/workouts', workoutRoutes);
+app.use('/api/posts', postRoutes);
 
 // Global error handler
 app.use((err, req, res, next) => {

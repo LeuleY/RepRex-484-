@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import NavBar from './NavBar';
 import axios from 'axios';
+import Plot from "react-plotly.js";
 
 // Exercise options and their fields
 const exerciseOptions = [
@@ -10,6 +11,11 @@ const exerciseOptions = [
   { type: 'Cycling', fields: ['distance', 'speed', 'intensity'] },
 ];
 
+
+const settings = {displayModeBar:false, 
+                  staticPlot:true};
+
+const sizing = [450, 300];
 const RexLog = () => {
   const [workouts, setWorkouts] = useState([]);
   const [selectedExercise, setSelectedExercise] = useState(exerciseOptions[0]);
@@ -17,6 +23,45 @@ const RexLog = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const userId = localStorage.getItem('userId'); // Retrieve the user ID from localStorage
+
+//0 = bicepCurls, 1 = squats, 2 = running, 3 = cycling
+var hasWorkoutType = [[false, false, false], [false, false, false], [false, false, false, false], [false, false, false, false]];
+
+//Will contain an x and a y component as JSON data
+//First outer index is the weight, second is the reps
+var bicepCurlVals = [[],[]];
+var squatsVals = [[],[]];
+
+//First outer index is the distance, second is the speed, third is the intensity
+var runningVals = [[],[],[]];
+var cyclingVals = [[],[],[]];
+
+var bicepCurlAnnot = [];
+var squatsAnnot = [];
+var runningAnnot = [];
+var cyclingAnnot = [];
+
+var bicepCurlPlot = [];
+var squatsPlot = [];
+var runningPlot = [];
+var cyclingPlot = [];
+
+  function workoutFieldEmpty(field){
+    return field !== "-" && field !== null;
+  }
+
+  function createPlotFromArray(array, plotType){
+    var plot = {
+      x:[],
+      y:[],
+      type:plotType
+    };
+    for(let i = 0; i < array.length; i++){
+      plot.x.push(array[i].x);
+      plot.y.push(array[i].y);
+    }
+    return plot;
+  }
 
   // Fetch workouts when the component mounts
   useEffect(() => {
@@ -104,7 +149,139 @@ const RexLog = () => {
       setError('Failed to add workout.');
     }
   };
+  function setPlots(){
+    var fullWorkoutList = JSON.parse(JSON.stringify(workouts));
+    for(let i = 0; i < fullWorkoutList.length; i++){
+      var workType = 0;
+      for(let j = 0; j < exerciseOptions.length; j++){
+        if(exerciseOptions[j].type === fullWorkoutList[i].exercise){
+          workType = j;
+          break;
+        }
+      }
+      if(workoutFieldEmpty(fullWorkoutList[i].date)){
+        switch(workType){
+          case 0:
+            hasWorkoutType[0][0] = true;
+            if(workoutFieldEmpty(fullWorkoutList[i].weight)){
+              hasWorkoutType[0][1] = true;
+              bicepCurlVals[0].push({x:fullWorkoutList[i].date, y:fullWorkoutList[i].weight});
 
+            }
+            if(workoutFieldEmpty(fullWorkoutList[i].reps)){
+              hasWorkoutType[0][2] = true;
+              bicepCurlVals[1].push({x:fullWorkoutList[i].date, y:fullWorkoutList[i].reps});
+            }
+            break;
+          case 2:
+            hasWorkoutType[1][0] = true;
+            if(workoutFieldEmpty(fullWorkoutList[i].weight)){
+              hasWorkoutType[1][1] = true;
+              squatsVals[0].push({x:fullWorkoutList[i].date, y:fullWorkoutList[i].weight});
+            }
+            if(workoutFieldEmpty(fullWorkoutList[i].reps)){
+              hasWorkoutType[1][2] = true;
+              squatsVals[1].push({x:fullWorkoutList[i].date, y:fullWorkoutList[i].reps});
+            }
+            break;
+          case 1:
+            hasWorkoutType[2][0] = true;
+            if(workoutFieldEmpty(fullWorkoutList[i].distance)){
+              hasWorkoutType[2][1] = true;
+              runningVals[0].push({x:fullWorkoutList[i].date, y:fullWorkoutList[i].distance});
+            }
+            if(workoutFieldEmpty(fullWorkoutList[i].speed)){
+              hasWorkoutType[2][2] = true;
+              runningVals[1].push({x:fullWorkoutList[i].date, y:fullWorkoutList[i].speed});
+            }
+            if(workoutFieldEmpty(fullWorkoutList[i].intensity)){
+              hasWorkoutType[2][3] = true;
+              runningVals[2].push({x:fullWorkoutList[i].date, y:fullWorkoutList[i].intensity});
+            }
+            break;
+          case 3:
+            hasWorkoutType[3][0] = true;
+            if(workoutFieldEmpty(fullWorkoutList[i].distance)){
+              hasWorkoutType[3][1] = true;
+              cyclingVals[0].push({x:fullWorkoutList[i].date, y:fullWorkoutList[i].distance});
+            }
+            if(workoutFieldEmpty(fullWorkoutList[i].speed)){
+              hasWorkoutType[3][2] = true;
+              cyclingVals[1].push({x:fullWorkoutList[i].date, y:fullWorkoutList[i].speed});
+            }
+            if(workoutFieldEmpty(fullWorkoutList[i].intensity)){
+              hasWorkoutType[3][3] = true;
+              cyclingVals[2].push({x:fullWorkoutList[i].date, y:fullWorkoutList[i].intensity});
+            }
+            break;
+          default:
+            console.log("Workout type "+workType+" is not valid");
+            break;
+        }
+      }
+    }
+    for(let i = 0; i < 2; i++){
+      if(hasWorkoutType[0][i+1])
+        bicepCurlVals[i].sort((a, b) => a.x-b.x);
+      if(hasWorkoutType[1][i+1])
+        squatsVals[i].sort((a, b) => a.x-b.x);
+    }
+    for(let i = 0; i < 3; i++){
+      if(hasWorkoutType[2][i+1])
+        runningVals[i].sort((a, b) => a.x-b.x);
+      if(hasWorkoutType[2][i+1])
+        cyclingVals[i].sort((a, b) => a.x-b.x);
+    }
+    if(hasWorkoutType[0][0]){
+      if(hasWorkoutType[0][1]){
+        bicepCurlPlot.push(createPlotFromArray(bicepCurlVals[0], "line"));
+        bicepCurlAnnot.push({text:"Bicep Curl Weight"});
+      }
+      if(hasWorkoutType[0][2]){
+        bicepCurlPlot.push(createPlotFromArray(bicepCurlVals[1], "line"));
+        bicepCurlAnnot.push({text:"Bicep Curl Reps"});
+      }
+    }
+    if(hasWorkoutType[1][0]){
+      if(hasWorkoutType[1][1]){
+        squatsPlot.push(createPlotFromArray(squatsVals[0], "line"));
+        squatsAnnot.push({text:"Squat Weight"});
+      }
+      if(hasWorkoutType[1][2]){
+        squatsPlot.push(createPlotFromArray(squatsVals[1], "line"));
+        squatsAnnot.push({text:"Squat Reps"});
+      }
+    }
+    if(hasWorkoutType[2][0]){
+      if(hasWorkoutType[2][1]){
+        runningPlot.push(createPlotFromArray(runningVals[0], "line"));
+        runningAnnot.push({text:"Running Distance"});
+      }
+      if(hasWorkoutType[2][2]){
+        runningPlot.push(createPlotFromArray(runningVals[1], "line"));
+        runningAnnot.push({text:"Running Speed"});
+      }
+      if(hasWorkoutType[2][3]){
+        runningPlot.push(createPlotFromArray(runningVals[2], "line"));
+        runningAnnot.push({text:"Running Intensity"});
+      }
+    }
+    if(hasWorkoutType[3][0]){
+      if(hasWorkoutType[3][1]){
+        cyclingPlot.push(createPlotFromArray(cyclingVals[0], "line"));
+        cyclingAnnot.push({text:"Cycling Distance"});
+      }
+      if(hasWorkoutType[3][2]){
+        cyclingPlot.push(createPlotFromArray(cyclingVals[1], "line"));
+        cyclingAnnot.push({text:"Cycling Speed"});
+      }
+      if(hasWorkoutType[3][3]){
+        cyclingPlot.push(createPlotFromArray(cyclingVals[2], "line"));
+        cyclingAnnot.push({text:"Cycling Intensity"});
+      }
+    }
+  }
+  setPlots();
   return (
     <div>
       <NavBar />
@@ -188,6 +365,19 @@ const RexLog = () => {
           )}
         </tbody>
       </table>
+      {hasWorkoutType[0][1] && <Plot data={[bicepCurlPlot[0]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Bicep Curls Weight", xaxis:{text:"Time"}, yaxis:{title:"Weight"}}}/>}
+      {hasWorkoutType[0][2] && <Plot data={[bicepCurlPlot[1]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Bicep Curls Reps", xaxis:{text:"Time"}, yaxis:{title:"Reps"}}}/>}
+      <br/>
+      {hasWorkoutType[2][1] && <Plot data={[runningPlot[0]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Running Distance", xaxis:{text:"Time"}, yaxis:{title:"Distance"}}}/>}
+      {hasWorkoutType[2][2] && <Plot data={[runningPlot[1]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Running Speed", xaxis:{text:"Time"}, yaxis:{title:"Speed"}}}/>}
+      {hasWorkoutType[2][3] && <Plot data={[runningPlot[2]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Running Intensity", xaxis:{text:"Time"}, yaxis:{title:"Intensity"}}}/>}
+      <br/>
+      {hasWorkoutType[1][1] && <Plot data={[squatsPlot[0]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Squats Weight", xaxis:{text:"Time"}, yaxis:{title:"Weight"}}}/>}
+      {hasWorkoutType[1][2] && <Plot data={[squatsPlot[1]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Squats Reps", xaxis:{text:"Time"}, yaxis:{title:"Reps"}}}/>}
+      <br/>
+      {hasWorkoutType[3][1] && <Plot data={[cyclingPlot[0]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Cycling Distance", xaxis:{text:"Time"}, yaxis:{title:"Distance"}}}/>}
+      {hasWorkoutType[3][2] && <Plot data={[cyclingPlot[1]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Cycling Speed", xaxis:{text:"Time"}, yaxis:{title:"Speed"}}}/>}
+      {hasWorkoutType[3][3] && <Plot data={[cyclingPlot[2]]} config={settings} layout={{width:sizing[0], height:sizing[1], title:"Cycling Intensity", xaxis:{text:"Time"}, yaxis:{title:"Intensity"}}}/>}
     </div>
   );
 };
