@@ -8,5 +8,7 @@ router.post("/like", postLike);
 router.post("/delete", deletePost);
 router.get("/number", getNumber)
 router.get("/grab", getPosts);
-
+router.get("/", (req, res) => {
+    console.log("Successfully routed to posts");
+})
 module.exports = router;

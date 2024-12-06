@@ -4,9 +4,10 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors'); // NEW CODE: Import CORS middleware
 const userRoutes = require('./routes/userRoutes');
+const postRoutes = require('./routes/postRoutes');
 const workoutRoutes = require('./routes/workoutRoutes');
 
-dotenv.config({ path: './server/config.env' });
+dotenv.config({ path: 'server/config.env' });
 
 const MONGODB_URI = process.env.ATLAS_URI;
 
@@ -25,11 +26,16 @@ const app = express();
 app.use(cors()); // NEW CODE: Enable CORS for all routes
 app.use(express.json());
 
-
-
 // Use the user routes
 app.use('/api/users', userRoutes);
 app.use('/api/workouts', workoutRoutes);
+app.use('/api/posts', postRoutes);
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error('❌ Unexpected error:', err);
+  res.status(500).json({ message: 'Internal Server Error', error: err.message });
+});
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
