@@ -1,5 +1,4 @@
-/* Community.css */
-
+/* Community Content */
 .community-content {
     margin-top: 20px;
     max-width: 1200px;
@@ -14,52 +13,58 @@
 .post-form-container {
     background: white;
     width: 100%;
-    max-width: 600px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    flex-shrink: 0;
-}
-
-/* Input Form */
-.post-form {
+    max-width: 800px;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    width: 100%;
+    align-items: center;
 }
 
-.post-input {
-    width: 100%;
-    min-height: 100px;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    resize: vertical;
-    box-sizing: border-box;
+.post-form{
+    width: 95%;
 }
 
-.image-input {
+/* Input Field */
+#text {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
+    max-width: 700px;
+    min-height: 120px;
+    padding: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    resize: none;
+    font-size: 1rem;
+    line-height: 1.5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+#text:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 6px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+/* Submit Button */
 .post-button {
-    padding: 10px 20px;
+    margin-top: 15px;
+    padding: 12px 28px;
     background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
-    align-self: flex-end;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .post-button:hover {
     background-color: #0056b3;
+    transform: translateY(-2px);
 }
 
 /* Posts Feed */

@@ -1,0 +1,134 @@
+.celebrity-card {
+    max-width: 500px;
+    margin: 20px auto;
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+.celebrity-card:hover {
+    transform: translateY(-8px);
+}
+
+.card-image-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+}
+
+.celebrity-name {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.workout-type {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 5px 0 0 0;
+}
+
+.card-content {
+    padding: 20px;
+}
+
+.workout-description {
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.routine-container {
+    max-height: 100px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.routine-container.expanded {
+    max-height: 1000px;
+}
+
+.routine-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.routine-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.routine-item {
+    display: flex;
+    align-items: start;
+    color: #444;
+    padding: 8px 0;
+    line-height: 1.4;
+}
+
+.bullet {
+    margin-right: 8px;
+    color: #b54a3d;
+}
+
+.expand-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    margin-top: 15px;
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    font-size: 14px;
+}
+
+.expand-button:hover {
+    color: #333;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .celebrity-card {
+        margin: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-image-container {
+        height: 150px;
+    }
+
+    .celebrity-name {
+        font-size: 20px;
+    }
+
+    .card-content {
+        padding: 15px;
+    }
+}

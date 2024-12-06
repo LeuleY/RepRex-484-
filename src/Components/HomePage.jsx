@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../ComponentCSS/HomePageStyles.css';
-import NavBar from './NavBar';
+import CelebrityWorkoutCard from './CelebCardComponent';
 import Footer from './Footer';
+import NavBar from './NavBar';
 import SearchBar from './SearchBar';
 
 
@@ -128,20 +128,25 @@ function HomePage() {
             </section>
 
             {/* Testimonials Section */}
-            <section className="testimonials">
-                <div className="testimonial">
-                    <img src="/homepageAssets/Before-After-1.png" alt="Before and After 1" />
-                    <blockquote>"It was nice to have an easy way to gauge my progress"</blockquote>
-                </div>
-                <div className="testimonial">
-                    <img src="/homepageAssets/Before-After-2.png" alt="Before and After 2" />
-                    <blockquote>"My son showed me the app, and it has been the most instructive mental boost in my weight loss journey."</blockquote>
-                </div>
-            </section>
+            <div className="content-wrapper">
+                <section className="testimonials">
+                    <div className="testimonial">
+                        <img src="/homepageAssets/Before-After-1.png" alt="Before and After 1" />
+                        <blockquote>"It was nice to have an easy way to gauge my progress"</blockquote>
+                    </div>
+                    <div className="testimonial">
+                        <img src="/homepageAssets/Before-After-2.png" alt="Before and After 2" />
+                        <blockquote>"My son showed me the app, and it has been the most instructive mental boost in my weight loss journey."</blockquote>
+                    </div>
+                </section>
 
-          
+                <section className="celebrity-workouts">
+                    <h2>Celebrity Workouts</h2>
+                        <CelebrityWorkoutCard />
+                </section>
+            </div>
+
                 <Footer></Footer>
-         
         </div>
     );
 }
