@@ -289,14 +289,11 @@ var cyclingPlot = [];
       <div>
         <NavBar></NavBar>
       
-      <div className='"rexlog-container"' > 
-        <h2>RepRex Log</h2>
-        <p>Add your workout details below:</p>
-    
+      <div className='"rexlog-container"' >   
         <div className="workout-form">
   <div className="input-row">
     <div className="form-group">
-      <label>Exercise Type:</label>
+      <label className='logLabel'>Exercise Type:</label>
       <select
         value={selectedExercise.type}
         onChange={(e) => {
@@ -331,7 +328,7 @@ var cyclingPlot = [];
   </div>
 
   <div className="button-container">
-    <button onClick={handleAddWorkout}>Add Workout</button>
+    <button className='logBtn' onClick={handleAddWorkout}>Add Workout</button>
     {error && <p className="error-message">{error}</p>}
   </div>
 </div>

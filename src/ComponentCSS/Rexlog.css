@@ -1,9 +1,4 @@
-/* Base styles */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+
   
   /* Main container styles */
   .rexlog-container {
@@ -13,24 +8,8 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
   
-  /* Header styles */
-  h2 {
-    color: #2c3e50;
-    margin-bottom: 1.5rem;
-    font-size: 2rem;
-    padding: 0 1rem;
-  }
-  
-  h3 {
-    color: #34495e;
-    margin: 2rem 0 1rem;
-    padding: 0 1rem;
-  }
-  
-  p {
-    padding: 0 1rem;
-  }
-  
+ 
+
   /* Form styles */
   .workout-form {
     background-color: #f8f9fa;
@@ -56,21 +35,14 @@
     padding: 0;
   }
   
-  label {
+  .logLabel {
     display: block;
     margin-bottom: 0.5rem;
     color: #4a5568;
     font-weight: 500;
   }
   
-  select, input {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #cbd5e0;
-    border-radius: 4px;
-    font-size: 1rem;
-    margin: 0;
-  }
+
   
   /* Button container */
   .button-container {
@@ -79,7 +51,7 @@
     padding-top: 1rem;
   }
   
-  button {
+  .logBtn {
     background-color: #4299e1;
     color: white;
     padding: 0.75rem 1.5rem;
@@ -91,7 +63,7 @@
     margin: 0;
   }
   
-  button:hover {
+ .logBtn:hover {
     background-color: #3182ce;
   }
   /* Table styles */
@@ -169,10 +141,7 @@
       padding: 1rem;
     }
     
-    select, input {
-      max-width: 100%;
-    }
-    
+
     .workout-form {
       margin: 1rem 0;
       padding: 1rem;
