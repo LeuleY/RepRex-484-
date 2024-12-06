@@ -145,6 +145,7 @@ var cyclingPlot = [];
 
       setWorkouts((prevWorkouts) => [...prevWorkouts, newWorkout]);
       setFormData({}); // Reset the form
+      window.location.reload(false);
     } catch (err) {
       console.error('Error adding workout:', err.response?.data || err.message);
       setError('Failed to add workout.');
@@ -289,7 +290,9 @@ var cyclingPlot = [];
       <div>
         <NavBar></NavBar>
       
-      <div className='"rexlog-container"' >   
+      <div className='"rexlog-container"' > 
+        <h2>RepRex Log</h2>
+        <p>Add your workout details below:</p>
         <div className="workout-form">
   <div className="input-row">
     <div className="form-group">
@@ -332,47 +335,7 @@ var cyclingPlot = [];
     {error && <p className="error-message">{error}</p>}
   </div>
 </div>
-    
         {loading && <p className="loading">Loading workouts...</p>}
-    
-        <h3>Your Workouts</h3>
-        <div className="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Exercise</th>
-                <th>Date</th>
-                <th>Weight (lbs)</th>
-                <th>Reps</th>
-                <th>Distance (miles)</th>
-                <th>Speed (mph)</th>
-                <th>Intensity</th>
-              </tr>
-            </thead>
-            <tbody>
-              {workouts.length > 0 ? (
-                workouts.map((workout, index) => (
-                  <tr key={index}>
-                    <td>{workout.exercise}</td>
-                    <td>{workout.date}</td>
-                    <td>{workout.weight}</td>
-                    <td>{workout.reps}</td>
-                    <td>{workout.distance}</td>
-                    <td>{workout.speed}</td>
-                    <td>{workout.intensity}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="7" style={{ textAlign: 'center' }}>
-                    No workouts recorded yet.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-    
         <div className="plots-container">
           {selectedExercise.type === exerciseOptions[0].type && (
             <>
@@ -544,6 +507,46 @@ var cyclingPlot = [];
             </>
           )}
         </div>
+        <h3>Your Workouts</h3>
+        <div className="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Exercise</th>
+                <th>Date</th>
+                <th>Weight (lbs)</th>
+                <th>Reps</th>
+                <th>Distance (miles)</th>
+                <th>Speed (mph)</th>
+                <th>Intensity</th>
+              </tr>
+            </thead>
+            <tbody>
+              {workouts.length > 0 ? (
+                workouts.map((workout, index) => (
+                  <tr key={index}>
+                    <td>{workout.exercise}</td>
+                    <td>{workout.date}</td>
+                    <td>{workout.weight}</td>
+                    <td>{workout.reps}</td>
+                    <td>{workout.distance}</td>
+                    <td>{workout.speed}</td>
+                    <td>{workout.intensity}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="7" style={{ textAlign: 'center' }}>
+                    No workouts recorded yet.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+
+    
+
       </div>
       </div>
     );
