@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import '../ComponentCSS/Footer.css'
+import '../ComponentCSS/Footer.css';
 
 const Footer = () => {
   return (
@@ -41,6 +41,7 @@ const Footer = () => {
             Pac man icons created by Smashicons - Flaticon
           </a>
         </p>
+        <a href="https://www.vecteezy.com/free-photos/dwayne-johnson">Dwayne Johnson Stock photos by Vecteezy</a>
       </div>
     </footer>
   );
