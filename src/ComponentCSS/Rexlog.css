@@ -1,0 +1,149 @@
+
+  
+  /* Main container styles */
+  .rexlog-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  
+ 
+
+  /* Form styles */
+  .workout-form {
+    background-color: #f8f9fa;
+    padding: 2rem;
+    border-radius: 8px;
+    margin: 2rem 1rem;
+  }
+  
+  /* Input group container */
+  .input-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    align-items: flex-end;
+  }
+  
+  /* Individual form group */
+  .form-group {
+    flex: 1;
+    min-width: 200px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .logLabel {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #4a5568;
+    font-weight: 500;
+  }
+  
+
+  
+  /* Button container */
+  .button-container {
+    display: flex;
+    gap: 1rem;
+    padding-top: 1rem;
+  }
+  
+  .logBtn {
+    background-color: #4299e1;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin: 0;
+  }
+  
+ .logBtn:hover {
+    background-color: #3182ce;
+  }
+  /* Table styles */
+  .table-container {
+    padding: 1rem;
+    overflow-x: auto;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  th {
+    background-color: #f7fafc;
+    font-weight: 600;
+    color: #4a5568;
+  }
+  
+  tr:hover {
+    background-color: #f8fafc;
+  }
+  
+  /* Error message styles */
+  .error-message {
+    color: #e53e3e;
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    padding: 0 1rem;
+  }
+  
+  /* Loading indicator styles */
+  .loading {
+    color: #718096;
+    text-align: center;
+    margin: 1rem;
+    padding: 1rem;
+  }
+  
+  /* Plots grid layout */
+  .plots-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    margin: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+  }
+  
+  .plot-container {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 968px) {
+    .rexlog-container {
+      padding: 1rem;
+    }
+    
+    .plots-container {
+      grid-template-columns: 1fr;
+      padding: 1rem;
+    }
+    
+
+    .workout-form {
+      margin: 1rem 0;
+      padding: 1rem;
+    }
+  }

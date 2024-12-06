@@ -1,81 +1,175 @@
 // workoutController.js
-const Workout = require('../models/Workouts');
 const User = require('../models/User');
-require('../controllers/userController');
-const axios = require('axios');
-require('mongoose');
+const Joi = require('joi'); // Validation library
 
-//Add new weights workout to user account
-const newWorkoutWeights = async (req, res) => {
-    const {reps, weight, workoutType, dateTime, userId} = req.body;
-
-    console.log("📥 Incoming new workout request: ", req.body);
-    try {
-        const newWorkout = new Workout({reps: reps, weight: weight, workoutType: workoutType, dateTime: dateTime});
-        await newWorkout.save();
-        addWorkoutToUser(newWorkout._id, userId);
-        res.status(201).json({ message: 'Workout created successfully: ', token });
-    } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+// Utility functions to handle unit conversions
+const convertToPreferredUnit = (workout, preferredUnit) => {
+    if (preferredUnit === 'imperial') {
+        return {
+            ...workout,
+            weight: workout.weight ? (workout.weight * 2.20462).toFixed(2) : null, // kg to lbs
+            distance: workout.distance ? (workout.distance * 0.621371).toFixed(2) : null, // km to miles
+            speed: workout.speed ? (workout.speed * 0.621371).toFixed(2) : null, // km/h to mph
+        };
+    } else if (preferredUnit === 'metric') {
+        return {
+            ...workout,
+            weight: workout.weight ? (workout.weight / 2.20462).toFixed(2) : null, // lbs to kg
+            distance: workout.distance ? (workout.distance / 0.621371).toFixed(2) : null, // miles to km
+            speed: workout.speed ? (workout.speed / 0.621371).toFixed(2) : null, // mph to km/h
+        };
     }
-}
+    return workout;
+};
 
-//Add new cardio workout to user account
-const newWorkoutCardio = async (req, res) => {
-    const {distance, duration, incline, workoutType, dateTime, userId} = req.body;
+// Joi schema for workout validation
+const workoutValidationSchema = Joi.object({
+    exercise: Joi.string().required(),
+    weight: Joi.number().optional().min(0),
+    reps: Joi.number().optional().min(0),
+    distance: Joi.number().optional().min(0),
+    speed: Joi.number().optional().min(0),
+    intensity: Joi.number().optional().min(0).max(10), // Intensity as a number between 0 and 10
+});
 
-    console.log("📥 Incoming new workout request: ", req.body);
+// ** Create a Workout **
+const createWorkout = async (req, res) => {
+    console.log("📥 Incoming workout creation request:", req.body);
+
     try {
-        const newWorkout = new Workout({distance: distance, duration: duration, incline: incline, workoutType: workoutType, dateTime: dateTime});
-        await newWorkout.save();
-        addWorkoutToUser(newWorkout._id, userId);
-        res.status(201).json({ message: 'Workout created successfully: ', token });
-    } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
-    }
-}
-async function addWorkoutToUser(workoutId, userId){
-    var acc = await User.findById(userId);
-    acc.workouts.push(workoutId);
-    await acc.save();
-}
+        const { userId } = req.params;
+        const { exercise, weight, reps, distance, speed, intensity } = req.body;
 
-//Delete workout from user account
-const deleteWorkout = async (req, res) => {
-    const {workoutId, userId} = req.body;
-    console.log('📥 Incoming workout deletion request: ', req.body);
-    try{
-        const workoutToDelete = await Workout.findById(workoutId);
-        var acc = await User.findById(userId);
-        var spliced = acc.workouts;
-        spliced.splice(acc.workouts.indexOf(workoutToDelete._id), 1);
-        var updatedArr = {
-            workouts: spliced
+        // Validate the input
+        const { error } = workoutValidationSchema.validate(req.body);
+        if (error) {
+            console.error("❌ Validation error:", error.details);
+            return res.status(400).json({ message: 'Invalid input', details: error.details });
         }
-        User.findByIdAndUpdate(acc._id, updatedArr);
-        Workout.findByIdAndDelete(workoutId);
-        res.status(200).json({ message: 'Workout deleted successfully: ', token });
-    } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
-    }
-}
 
-//Gets user's workouts
+        // Find the user in the database
+        const user = await User.findById(userId);
+        if (!user) {
+            console.error("❌ User not found for ID:", userId);
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Append the new workout to the user's workouts array
+        const newWorkout = { exercise, weight, reps, distance, speed, intensity };
+        user.workouts.push(newWorkout);
+
+        // Save the updated user document
+        await user.save();
+        console.log("✅ Workout added successfully:", newWorkout);
+        res.status(201).json({ message: 'Workout added successfully', workout: newWorkout });
+    } catch (error) {
+        console.error("❌ Error adding workout:", error.message);
+        res.status(500).json({ message: 'Error adding workout', error: error.message });
+    }
+};
+
+// ** Fetch All Workouts for a User **
 const getWorkouts = async (req, res) => {
-    const {userId} = req.body;
-    try{
-        var acc = await User.findById(userId);
-        var workoutIds = acc.workouts;
-        var workouts = [];
-        for(var i = 0; i < workoutIds.length; i++){
-            var curr = Workout.findById(workoutIds[i]);
-            workouts.push(curr);
+    console.log("📥 Fetching workouts for user ID:", req.params.userId);
+
+    try {
+        const { userId } = req.params;
+
+        const user = await User.findById(userId);
+        if (!user) {
+            console.error("❌ User not found for ID:", userId);
+            return res.status(404).json({ message: 'User not found' });
         }
-        res.status(200).json(workouts);
+
+        // Convert workouts to the user's preferred units before sending response
+        const workoutsInPreferredUnit = user.workouts.map((workout) => ({
+            exercise: workout.exercise || '-',
+            date: workout.date || '-',
+            weight: workout.weight ?? '-',
+            reps: workout.reps ?? '-',
+            distance: workout.distance ?? '-',
+            speed: workout.speed ?? '-',
+            intensity: workout.intensity ?? '-',
+        }));
+
+        console.log("✅ Retrieved workouts for user:", workoutsInPreferredUnit);
+        res.status(200).json(workoutsInPreferredUnit);
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        console.error("❌ Error fetching workouts:", error.message);
+        res.status(500).json({ message: 'Error fetching workouts', error: error.message });
     }
+};
 
-}
+// ** Update a Workout **
+const updateWorkout = async (req, res) => {
+    console.log("📥 Incoming workout update request:", req.body);
 
-module.exports = {newWorkoutWeights, newWorkoutCardio, deleteWorkout, getWorkouts};
+    try {
+        const { workoutId, userId } = req.params;
+        const updates = req.body;
+
+        const { error } = workoutValidationSchema.validate(updates);
+        if (error) {
+            console.error("❌ Validation error:", error.details);
+            return res.status(400).json({ message: 'Invalid input', details: error.details });
+        }
+
+        const user = await User.findById(userId);
+        if (!user) {
+            console.error("❌ User not found for ID:", userId);
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        const workout = user.workouts.id(workoutId);
+        if (!workout) {
+            console.error("❌ Workout not found for ID:", workoutId);
+            return res.status(404).json({ message: 'Workout not found' });
+        }
+
+        Object.assign(workout, updates);
+
+        await user.save();
+        console.log("✅ Workout updated successfully:", workout);
+        res.status(200).json({ message: 'Workout updated successfully', workout });
+    } catch (error) {
+        console.error("❌ Error updating workout:", error.message);
+        res.status(500).json({ message: 'Error updating workout', error: error.message });
+    }
+};
+
+// ** Delete a Workout **
+const deleteWorkout = async (req, res) => {
+    console.log("📥 Incoming workout deletion request:", req.params);
+
+    try {
+        const { workoutId, userId } = req.params;
+
+        const user = await User.findById(userId);
+        if (!user) {
+            console.error("❌ User not found for ID:", userId);
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        const workout = user.workouts.id(workoutId);
+        if (!workout) {
+            console.error("❌ Workout not found for ID:", workoutId);
+            return res.status(404).json({ message: 'Workout not found' });
+        }
+
+        workout.remove();
+
+        await user.save();
+        console.log("✅ Workout deleted successfully for user:", userId);
+        res.status(200).json({ message: 'Workout deleted successfully' });
+    } catch (error) {
+        console.error("❌ Error deleting workout:", error.message);
+        res.status(500).json({ message: 'Error deleting workout', error: error.message });
+    }
+};
+
+module.exports = {
+    createWorkout,
+    getWorkouts,
+    updateWorkout,
+    deleteWorkout,
+};

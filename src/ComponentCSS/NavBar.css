@@ -1,63 +1,90 @@
-/* General styles */
+/* Header base styles */
 header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #b54a3d;
-    padding: 20px 15px;
+    background: linear-gradient(135deg, #b54a3d 0%, #c85a4d 100%);
+    padding: 1rem 2rem;
     color: #ffffff;
-    height: auto;
+    height: 70px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
 
-/* Logo */
+/* Logo section */
 header .logo {
     display: flex;
     align-items: center;
+    gap: 1rem;
 }
 
 header .logo h1 {
-    font-size: 20px;
-    font-weight: bold;
-    margin-left: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+#mainLogo {
+    width: 200px;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+#mainLogo:hover {
+    transform: scale(1.02);
 }
 
 /* Navigation styles */
 header nav {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 2rem;
     margin-left: auto;
-    padding-right: 20px;
 }
 
 header nav a {
     color: #ffffff;
     text-decoration: none;
-    font-weight: bold;
-    font-size: 18px;
-    margin: 0;
-    transition: color 0.3s ease;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+header nav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+header nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: #ffffff;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+header nav a:hover::after {
+    width: 80%;
 }
 
 header nav img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
-#mainLogo {
-
-    width: 250px;
-    /* Adjust the width */
-    height: auto;
-    /* Maintain aspect ratio */
-    display: block;
-    /* Centers the image when margin is auto */
-    margin: 0 auto;
-    /* Center horizontally */
-    background-color: transparent;
-    /* Ensure no background color */
-
+header nav img:hover {
+    transform: scale(1.1);
+    border-color: rgba(255, 255, 255, 0.8);
 }
 
 /* Hamburger menu */
@@ -65,64 +92,135 @@ header nav img {
     display: none;
     flex-direction: column;
     cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1001;
+    transition: transform 0.3s ease;
+}
+
+.hamburger:hover {
+    transform: scale(1.1);
 }
 
 .hamburger span {
     background: white;
-    height: 3px;
-    margin: 5px 0;
+    height: 2px;
+    margin: 4px 0;
     width: 25px;
+    border-radius: 2px;
+    transition: all 0.3s ease;
 }
 
-/* Dropdown navigation for small screens */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Dropdown navigation */
 .nav-menu {
-    display: flex;
+    display: none;
     flex-direction: column;
-    gap: 10px;
+    gap: 0.5rem;
     position: absolute;
     top: 70px;
-    right: 15px;
-    background-color: #b54a3d;
-    border-radius: 5px;
-    padding: 10px;
-    display: none;
-    z-index: 1000;
+    right: 1rem;
+    background: linear-gradient(135deg, #b54a3d 0%, #c85a4d 100%);
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transform-origin: top right;
+    animation: slideIn 0.3s ease;
+    min-width: 200px;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .nav-menu.active {
     display: flex;
 }
 
+/* Button styles */
 .logout-button,
 .username-display {
     color: #ffffff;
     text-decoration: none;
-    font-weight: bold;
-    font-size: 18px;
-    background-color: #b54a3d;
+    font-weight: 600;
+    font-size: 1rem;
+    background-color: transparent;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
 }
 
-/* Responsive breakpoints */
+.logout-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.username-display {
+    font-size: larger;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+/* Responsive design */
 @media (max-width: 768px) {
+    header {
+        padding: 1rem;
+    }
+
     header nav {
         display: none;
-        /* Hide the regular nav bar on small screens */
     }
 
     .hamburger {
         display: flex;
-        /* Show the hamburger icon */
+    }
+
+    #mainLogo {
+        width: 150px;
+    }
+
+    .nav-menu a {
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem;
+    }
+
+    .nav-menu a:not(:last-child) {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 }
 
 @media (min-width: 769px) {
     .nav-menu {
         display: none;
-        /* Ensure dropdown is hidden on large screens */
     }
 
     header nav {
         display: flex;
-        /* Show the regular nav bar on large screens */
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    header {
+        background: linear-gradient(135deg, #943d32 0%, #b54a3d 100%);
     }
 }

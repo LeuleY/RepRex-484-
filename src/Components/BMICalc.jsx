@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import '../ComponentCSS/BMI.css';
+import Footer from "./Footer";
+import NavBar from "./NavBar";
 
 function BMICalc() {
     const [height, setHeight] = useState("");
@@ -39,6 +41,15 @@ function BMICalc() {
     };
 
     return (
+
+        <div>
+            <nav>
+                <NavBar></NavBar>
+            </nav>
+
+
+
+
         <div className="container">
             <form action="" onSubmit={handleBMISubmit}>
                 <label htmlFor="HeightInput">Height (cm)</label>
@@ -105,6 +116,11 @@ function BMICalc() {
                     
                 </p>
             </div>
+        </div>
+
+        <footer>
+            <Footer></Footer>
+        </footer>
         </div>
     );
 }
