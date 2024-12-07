@@ -1,9 +1,22 @@
 {
   "version": 2,
+
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "/server/index.js"
+      "src": "/api/users/(.*)",
+      "dest": "/server/routes/userRoutes.js"
+    },
+    {
+      "src": "/api/workouts/(.*)",
+      "dest": "/server/routes/workoutRoutes.js"
+    },
+    {
+      "src": "/api/posts/(.*)",
+      "dest": "/server/routes/postRoutes.js"
+    },
+    {
+      "src": "/api/userWorkouts/(.*)",
+      "dest": "/server/routes/userWorkoutRoutes.js"
     }
   ]
 }
