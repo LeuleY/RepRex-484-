@@ -83,13 +83,13 @@ async function addWorkoutToUser(workoutId){ //Adds the newly created workout to 
 //ANOTHER POSSIBLE SOLUTION IS TO CREATE THIS "acc" VARIABLE ON LOGIN AND STORE THAT INSTEAD, BUT I PREFER TO STORE THE ID
 app.post('/account/register', (req, res) =>{
     registerAccount(req.body.username, req.body.password, req.body.email);
-    res.status(200).redirect("http://localhost:3000/login");
+    res.status(200).redirect("https://reprex-484.onrender.com/login");
 });
 app.post('/account/login', async (req, res) =>{
     if(await login(req.body.username, req.body.password))
-        res.status(200).redirect("http://localhost:3000/cards");
+        res.status(200).redirect("https://reprex-484.onrender.com/cards");
     else
-        res.status(200).redirect("http://localhost:3000/login");
+        res.status(200).redirect("https://reprex-484.onrender.com/login");
 });
 async function registerAccount(user, pass, email){ //Registers new user's account. If no username is passed, value should be sent as "null"
     var isTaken = await account.find({username: user}); //Checks if the user's selected username is unique
