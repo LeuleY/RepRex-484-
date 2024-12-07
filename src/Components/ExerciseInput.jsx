@@ -39,7 +39,7 @@ const ExerciseInput = () => {
         var uid = '';
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.get('http://localhost:5001/api/users/profile', {
+            const response = await axios.get('https://reprex-484.onrender.com/api/users/profile', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -50,7 +50,7 @@ const ExerciseInput = () => {
             console.error('Error fetching user data:', error);
         }
         try {
-            const response = await axios.post('http://localhost:5001/api/workouts/createWeights', {
+            const response = await axios.post('https://reprex-484.onrender.com/api/workouts/createWeights', {
                 workoutType: exerciseType,
                 weight: weight,
                 reps: reps,
@@ -77,7 +77,7 @@ const ExerciseInput = () => {
         var uid = '';
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.get('http://localhost:5001/api/users/profile', {
+            const response = await axios.get('https://reprex-484.onrender.com/api/users/profile', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -88,7 +88,7 @@ const ExerciseInput = () => {
             console.error('Error fetching user data:', error);
         }
         try {
-            const response = await axios.post('http://localhost:5001/api/workouts/createCardio', {
+            const response = await axios.post('https://reprex-484.onrender.com/api/workouts/createCardio', {
                 workoutType: exerciseType,
                 distance: distance,
                 duration: time,

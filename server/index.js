@@ -6,7 +6,7 @@ const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
 const workoutRoutes = require('./routes/workoutRoutes');
 
-dotenv.config({ path: 'server/config.env' });
+dotenv.config({ path: './config.env' });
 
 const MONGODB_URI = process.env.ATLAS_URI;
 

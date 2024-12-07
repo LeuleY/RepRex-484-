@@ -24,7 +24,7 @@ function HomePage() {
             }
 
             try {
-                const response = await axios.get('http://localhost:5001/api/users/profile', {
+                const response = await axios.get('https://reprex-484.onrender.com/api/users/profile', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

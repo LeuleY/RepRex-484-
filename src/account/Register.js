@@ -15,7 +15,7 @@ const Register = () => {
 
     try {
       // Making a POST request using Axios
-      const response = await axios.post('http://localhost:5001/api/users/register', {
+      const response = await axios.post('https://reprex-484.onrender.com/api/users/register', {
         username,
         password,
         email,

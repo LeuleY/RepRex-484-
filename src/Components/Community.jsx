@@ -7,7 +7,7 @@ const token = localStorage.getItem('token');
 async function returnUserName(){
     try{
 
-        const response = await axios.get("http://localhost:5001/api/users/profile", {
+        const response = await axios.get("https://reprex-484.onrender.com/api/users/profile", {
             headers:{
                 Authorization: `Bearer ${token}`,
             }
@@ -33,11 +33,11 @@ function Community(){
         async function fetchData(){
             if(COUNT <= 0)
                 COUNT = START_COUNT;
-            var actualNum = await axios.get("http://localhost:5001/api/posts/number").then(res => {return res.data.count}).catch(error => console.log(error));
+            var actualNum = await axios.get("https://reprex-484.onrender.com/api/posts/number").then(res => {return res.data.count}).catch(error => console.log(error));
             COUNT = (COUNT > actualNum) ? actualNum : COUNT;
 
             if(JSON.parse(JSON.stringify(posts)).length < COUNT){
-                setList(await axios.get("http://localhost:5001/api/posts/grab?count="+COUNT).then(res => {return res.data}).catch(error => console.log(error)));
+                setList(await axios.get("https://reprex-484.onrender.com/api/posts/grab?count="+COUNT).then(res => {return res.data}).catch(error => console.log(error)));
                 var list = JSON.parse(JSON.stringify(postList));
                 for(let i = 0; i < list.length && i < COUNT && JSON.parse(JSON.stringify(posts.length)) < COUNT; i++){
                     const post = {
@@ -81,7 +81,7 @@ function Community(){
 
             setNewPost('');
             setImageUrl('');
-            post.id = await axios.post("http://localhost:5001/api/posts/create", {
+            post.id = await axios.post("https://reprex-484.onrender.com/api/posts/create", {
                 text:post.content,
                 creator:post.author,
                 time:post.timestamp
@@ -110,7 +110,7 @@ function Community(){
     const handleDelete = async (postId) => {
         var currentUser = await returnUserName();
         setPosts(posts.filter(post => (post.id !== postId || post.author !== currentUser)))
-        await axios.post("http://localhost:5001/api/posts/delete", {id:postId, userName:currentUser},{
+        await axios.post("https://reprex-484.onrender.com/api/posts/delete", {id:postId, userName:currentUser},{
             headers:{
                 Authorization: `Bearer ${token}`,
             }
@@ -122,7 +122,7 @@ function Community(){
     const handleLike = async (postId) => {
          setPosts(await Promise.all(posts.map(async (post) =>{
             if (post.id === postId){
-                var likeCount = await axios.post("http://localhost:5001/api/posts/like",{id:postId, userName: await returnUserName()},{
+                var likeCount = await axios.post("https://reprex-484.onrender.com/api/posts/like",{id:postId, userName: await returnUserName()},{
                     headers:{
                         Authorization: `Bearer ${token}`,
                     }

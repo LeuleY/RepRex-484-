@@ -69,7 +69,7 @@ var cyclingPlot = [];
     const fetchWorkouts = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`http://localhost:5001/api/workouts/${userId}`, {
+        const response = await axios.get(`https://reprex-484.onrender.com/api/workouts/${userId}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -121,7 +121,7 @@ var cyclingPlot = [];
 
     try {
       const response = await axios.post(
-        `http://localhost:5001/api/workouts/${userId}`,
+        `https://reprex-484.onrender.com/api/workouts/${userId}`,
         workoutData,
         {
           headers: {
