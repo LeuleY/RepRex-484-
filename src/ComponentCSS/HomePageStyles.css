@@ -137,7 +137,7 @@ header nav img {
     align-items: flex-start;
     padding: 30px 40px;
     background-color: #fdfbf7;
-    gap: 40px;
+   
 }
 
 .testimonials {
@@ -147,6 +147,14 @@ header nav img {
     gap: 30px;
     flex: 1;
     max-width: 50%;
+}
+
+
+.testimonials h2 {
+    display: block;           /* changed from inline to block */
+    text-align: center;       /* centers the text */
+    margin-left: auto;        /* auto margins for horizontal centering */
+    margin-right: auto;
 }
 
 .testimonial {

@@ -6,12 +6,52 @@ import CelebrityWorkoutCard from './CelebCardComponent';
 import Footer from './Footer';
 import NavBar from './NavBar';
 import SearchBar from './SearchBar';
+import theRock from '../DetailPageAssets/TheRockPicture.jpg';
+import chrisHemsworth from '../DetailPageAssets/chrisHem.png'
 
 
 function HomePage() {
     const [username, setUsername] = useState('');
     const [currentPosition, setCurrentPosition] = useState(0);
     const navigate = useNavigate();
+    const rockWorkoutData = {
+        name: "The Rock",
+        workoutType: "Leg Day",
+        image: theRock,
+        description: "Dwayne 'The Rock' Johnson's intense leg day routine.",
+        routine: [
+            "Run on Treadmill – 30-50 minutes",
+            "Eat Breakfast",
+            "Barbell Walking Lunge – 4 sets, 25 reps",
+            "Leg Press – 4 sets, 25 reps",
+            "Leg Extensions – 3 sets, 20 reps",
+            "Barbell Squat – 4 sets, 12 reps",
+            "Hack Squat – 4 sets, 12 reps",
+            "Single Leg Hack Squat – 4 sets, 12 reps",
+            "Romanian Deadlift – 4 sets, 10 reps",
+            "Seated Leg Curl – 3 sets, 20 reps",
+            "Thigh Abductor – 4 sets, 12 reps"
+        ]
+        };
+
+    const hemsworthBicepsData = {
+            name: "Chris Hemsworth",
+            workoutType: "Thor Biceps Blast",
+            image: chrisHemsworth,
+            description: "Chris Hemsworth's intense biceps workout routine that helped build his Thor physique.",
+            routine: [
+                "Dynamic Warmup – 10 minutes",
+                "Standing Barbell Curls – 4 sets, 12 reps",
+                "Incline Dumbbell Curls – 4 sets, 15 reps",
+                "Hammer Curls – 3 sets, 12 reps each arm",
+                "Preacher Curls – 4 sets, 10 reps",
+                "Cable Bicep Curls – 3 sets, 15 reps",
+                "21s (7 lower half, 7 upper half, 7 full reps) – 3 sets",
+                "Concentration Curls – 3 sets, 12 reps each arm",
+                "Reverse Grip EZ Bar Curls – 3 sets, 15 reps",
+                "Isometric Bicep Holds – 3 sets, 30 seconds"
+            ]
+        };
 
     // Fetch user profile on component mount
     useEffect(() => {
@@ -122,6 +162,12 @@ function HomePage() {
                 </button>
             </section>
 
+
+          
+
+
+
+
             {/* Quote Section */}
             <section className="quote">
                 <p>Each day, I grow stronger, healthier, and closer to my goals.</p>
@@ -129,7 +175,10 @@ function HomePage() {
 
             {/* Testimonials Section */}
             <div className="content-wrapper">
+                 
                 <section className="testimonials">
+                <h2 >Testimonials</h2>
+                   
                     <div className="testimonial">
                         <img src="/homepageAssets/Before-After-1.png" alt="Before and After 1" />
                         <blockquote>"It was nice to have an easy way to gauge my progress"</blockquote>
@@ -142,8 +191,11 @@ function HomePage() {
 
                 <section className="celebrity-workouts">
                     <h2>Celebrity Workouts</h2>
-                        <CelebrityWorkoutCard />
+                    <CelebrityWorkoutCard workoutData={rockWorkoutData}  />
+                    <CelebrityWorkoutCard workoutData={hemsworthBicepsData} />
                 </section>
+
+              
             </div>
 
                 <Footer></Footer>
