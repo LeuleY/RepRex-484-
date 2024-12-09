@@ -93,8 +93,8 @@ function HomePage() {
     const muscleGroups = [
         { name: 'Chest', image: '/homepageAssets/Chest.png', displayName:'Chest' },
         { name: 'Lats', image: '/homepageAssets/Back.png', displayName: 'Lats' },
-        { name: 'quadriceps', image: '/homepageAssets/legs.png', displayName:'Quads'},
-        { name: 'Shoulders', image:'/homepageAssets/shoulders.png', displayName:'Shoulders' },
+        { name: 'quadriceps', image: '/homepageAssets/Legs.png', displayName:'Quads'},
+        { name: 'Shoulders', image:'/homepageAssets/Shoulders.png', displayName:'Shoulders' },
         { name: 'Biceps', image: '/homepageAssets/Arms.png', displayName:'Biceps'},
         { name: 'Abdominals', image: '/homepageAssets/Abs.png', displayName:'Abs'  },
         { name: 'Calves', image: '/homepageAssets/Calf.png',displayName: 'Calves'}, 
