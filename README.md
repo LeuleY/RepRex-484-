@@ -1,70 +1,72 @@
-# Getting Started with Create React App
+Rep Rex 🦖💪
+A full-stack fitness tracking web application that helps users discover exercises, log workouts, track progress, and connect with a fitness community.
+Live Demo: https://rep-rex-484.vercel.app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Note: Initial load may take 10-15 seconds due to free-tier cold starts on Vercel and MongoDB Atlas. The application runs smoothly after the initial warm-up.
 
-## Available Scripts
 
-In the project directory, you can run:
+Features
+🏋️ Exercise Library
 
-### `npm start`
+Comprehensive database of exercises organized by muscle group
+Integrated YouTube video tutorials for proper form and technique
+Detailed instructions, equipment requirements, and difficulty levels
+Search and filter functionality
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+📊 Workout Tracking
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Log workouts with sets, reps, and weight
+Visual progress tracking with interactive charts
+Historical data analysis using Chart.js
+Personal workout history and statistics
 
-### `npm test`
+👥 Community Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Share workout experiences and progress
+User testimonials and transformations
+Celebrity workout routines
+Social engagement with fellow fitness enthusiasts
 
-### `npm run build`
+🔐 User Authentication
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Secure account creation and login
+Personalized user dashboards
+Protected routes and user-specific data
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Tech Stack
+Frontend:
 
-### `npm run eject`
+React.js
+Chart.js for data visualization
+Responsive CSS design
+React Router for navigation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Backend:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Node.js with Express
+MongoDB Atlas for database management
+RESTful API architecture
+User authentication and session management
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+External APIs:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+YouTube Search API for exercise video tutorials
+Exercise Database API for workout information
 
-## Learn More
+Deployment:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Frontend: Vercel
+Database: MongoDB Atlas (Free Tier)Screenshots
+Login Page
+<img width="1568" height="769" alt="image" src="https://github.com/user-attachments/assets/3de8ee40-75a8-40ef-bdee-47fbd908872b" />
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Secure authentication with user registration
+Home Dashboard
+<img width="1499" height="812" alt="image" src="https://github.com/user-attachments/assets/4fdc19c5-88c8-4381-a317-99760b84b4b5" />
 
-### Code Splitting
+Browse exercises by muscle group with celebrity workouts and testimonials
+Exercise Details
+<img width="1533" height="784" alt="image" src="https://github.com/user-attachments/assets/29137b3b-6399-43fd-af39-cb108e9a0f1c" />
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Detailed instructions with embedded YouTube tutorials
