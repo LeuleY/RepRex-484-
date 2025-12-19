@@ -62,8 +62,7 @@ Login Page
 <img width="1568" height="769" alt="image" src="https://github.com/user-attachments/assets/3de8ee40-75a8-40ef-bdee-47fbd908872b" />
 
 Secure authentication with user registration
-Home Dashboard
-<img width="1499" height="812" alt="image" src="https://github.com/user-attachments/assets/4fdc19c5-88c8-4381-a317-99760b84b4b5" />
+
 
 Browse exercises by muscle group with celebrity workouts and testimonials
 Exercise Details
